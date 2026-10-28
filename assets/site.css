@@ -16,7 +16,7 @@
   --radius: 8px;
   --blur: 12px;
   --gutter: max(20px, env(safe-area-inset-left, 0px));
-  --nav-height: 52px;
+  --nav-height: 55px;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 96px; overflow-x: clip; }
@@ -53,16 +53,20 @@ img { max-width: 100%; }
   display: flex; align-items: center; justify-content: space-between; gap: 8px 12px; flex-wrap: wrap;
   padding: 8px 8px 8px 18px;
 }
-.nav .home { font-weight: 500; font-size: 16px; letter-spacing: -0.02em; text-decoration: none; }
+.nav .home { font-weight: 500; font-size: 19px; letter-spacing: -0.02em; text-decoration: none; }
 /* Same letter spacing as the hero name, so the hand-over from the flying name is invisible. */
 .nav .home.waits-for-hero { visibility: hidden; letter-spacing: -0.05em; }
 .nav .home.waits-for-hero.is-docked { visibility: visible; }
 .nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 10px; flex-wrap: wrap; }
-.nav ul a { display: block; font-size: 15px; padding: 6px 12px; border-radius: 6px; color: var(--ink-soft); text-decoration: none; }
+.nav ul a { display: block; font-size: 16px; font-weight: 450; padding: 6px 13px; border-radius: 6px; color: #aeaeae; text-decoration: none; }
 .nav ul a:hover, .nav ul a[aria-current="page"] { color: var(--ink); background: var(--chip); }
 
 /* Shared type */
 .lead { margin: 0; font-size: clamp(18px, 2.2vw, 22px); line-height: 1.5; max-width: 46ch; }
+.lead.full-line { max-width: none; }
+.page-head .lead { margin-top: 14px; }
+/* Whatever follows a page title sits close under it, instead of a full section gap away. */
+.page-head + * { margin-top: calc(36px - clamp(56px, 8vw, 96px)); }
 .prose { display: grid; gap: 18px; }
 .prose p { margin: 0; text-align: justify; hyphens: auto; }
 .muted { color: var(--ink-soft); }
@@ -90,13 +94,14 @@ h2.section-title { margin: 0; font-weight: 500; font-size: 28px; line-height: 1.
 .hero { --hero-name-size: clamp(24px, 6.9vw, 70px); }
 .hero h1 { margin: 0; font-weight: 500; font-size: var(--hero-name-size); line-height: 0.96; letter-spacing: -0.05em; }
 /* Kept on one line so it can shrink into the top bar as the page scrolls (site.js). */
-.hero .hero-name { display: inline-block; margin-left: 0.07em; position: relative; z-index: 11; white-space: nowrap; transform-origin: 0 0; will-change: transform; }
-.hero .role-line { display: block; margin-top: 0.62em; font-size: clamp(18px, 3.2vw, 37px); line-height: 1.2; letter-spacing: -0.02em; color: var(--ink-soft); font-weight: 400; }
+.hero .hero-name { display: inline-block; margin-left: -0.05em; position: relative; z-index: 11; white-space: nowrap; transform-origin: 0 0; will-change: transform; }
+.hero .role-line { display: block; margin-top: clamp(10px, 1.4vw, 23px); font-size: clamp(16px, 1.95vw, 22px); line-height: 1.2; letter-spacing: -0.02em; color: var(--ink-soft); font-weight: 400; }
 /* Home: About sits closer under the hero, and the two buttons follow the About text. */
 .home-about { margin-top: calc(56px - clamp(56px, 8vw, 96px)); }
 .home-about .actions { margin-top: 44px; }
-.page-head { display: grid; gap: 14px; padding-top: clamp(12px, 4vw, 40px); }
-.page-head h1 { margin: 0; font-weight: 500; font-size: clamp(40px, 7vw, 72px); line-height: 1; letter-spacing: -0.05em; text-wrap: balance; }
+.hero .lead { font-size: clamp(15px, 1.6vw, 17px); margin-top: 14px; }
+.page-head { display: grid; gap: 14px; margin-top: calc(var(--nav-height) - clamp(56px, 8vw, 96px) - 0.13 * var(--hero-name-size)); --hero-name-size: clamp(24px, 6.9vw, 70px); }
+.page-head h1 { margin: 0 0 0 -0.05em; font-weight: 500; font-size: var(--hero-name-size); line-height: 0.96; letter-spacing: -0.05em; text-wrap: balance; }
 
 /* Build tiles */
 .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
@@ -115,9 +120,9 @@ h2.section-title { margin: 0; font-weight: 500; font-size: 28px; line-height: 1.
 .status-pill.is-live { color: #0d0d0f; background: var(--accent); border-color: var(--accent); font-weight: 500; }
 
 /* Build page */
-.build-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 20px 24px; align-items: center; padding-top: clamp(12px, 4vw, 40px); }
+.build-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 20px 24px; align-items: center; --hero-name-size: clamp(24px, 6.9vw, 70px); margin-top: calc(var(--nav-height) - clamp(56px, 8vw, 96px) - 0.13 * var(--hero-name-size)); }
 .build-head img { width: clamp(72px, 12vw, 112px); height: auto; display: block; }
-.build-head h1 { margin: 0; font-weight: 500; font-size: clamp(40px, 7vw, 72px); line-height: 1; letter-spacing: -0.05em; }
+.build-head h1 { margin: 0; font-weight: 500; font-size: var(--hero-name-size); line-height: 0.96; letter-spacing: -0.05em; }
 .build-head .tagline { margin: 6px 0 0; font-size: clamp(17px, 2vw, 20px); color: var(--ink-soft); }
 .build-head .actions { grid-column: 1 / -1; }
 .story { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; padding: clamp(20px, 3vw, 32px); margin: 0; }
@@ -146,11 +151,23 @@ h2.section-title { margin: 0; font-weight: 500; font-size: 28px; line-height: 1.
 .build-pager a:last-child { text-align: right; margin-left: auto; }
 
 /* Resume */
-.role { display: grid; grid-template-columns: minmax(0, 170px) minmax(0, 1fr); gap: 4px 24px; padding-block: 20px; border-top: 1px solid var(--edge); }
-.role time { font-family: var(--font-label); font-size: 13px; color: var(--ink-soft); padding-top: 4px; font-variant-numeric: tabular-nums; }
-.role h3 { margin: 0; font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
-.role h3 span { font-weight: 400; color: var(--ink-soft); }
-.role ul { margin: 10px 0 0; padding-left: 18px; display: grid; gap: 10px; font-size: 16px; }
+.resume-summary { margin: 0; text-align: justify; hyphens: auto; }
+/* Timeline: logo and dates on the left rail, joined by a thin line; the role fills the rest of the width. */
+.timeline { display: grid; }
+.role { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 0 28px; padding-block: 24px; border-top: 1px solid var(--edge); }
+.role-rail { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.role-rail img { width: 88px; height: 40px; object-fit: contain; display: block; }
+/* Box-shaped logos get soft corners; Scholastic's white lettering sits in its own red box. */
+.role-rail img[src*="rjc"], .role-rail img[src*="jpmorgan"] { width: 40px; border-radius: 8px; }
+.role-rail img[src*="scholastic"] { width: 104px; height: 30px; padding: 7px 9px; box-sizing: border-box; border-radius: 6px; background: #e2231a; }
+.role:not(:last-child) .role-rail::after { content: ""; flex: 1; width: 1px; margin-bottom: -24px; background: var(--edge-strong); }
+.role time { font-family: var(--font-label); font-size: 15px; color: #e0e0e0; text-align: center; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.role-body { display: grid; gap: 4px; align-content: start; }
+.role h3 { margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.02em; }
+.role h3 span { font-size: 16px; font-weight: 400; color: #8f8f8f; }
+.role-title { margin: 0; font-size: 17px; color: #cfcfcf; }
+.role ul { margin: 12px 0 0; padding-left: 18px; display: grid; gap: 10px; font-size: 16px; }
+.role li { text-align: justify; hyphens: auto; }
 .role li b { font-weight: 500; }
 .role li::marker { color: var(--ink-faint); }
 .lists { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding-top: 20px; border-top: 1px solid var(--edge); }
@@ -166,36 +183,43 @@ h2.section-title { margin: 0; font-weight: 500; font-size: 28px; line-height: 1.
 .gallery-tabs button span { font-family: var(--font-label); font-size: 12px; color: var(--ink-faint); margin-left: 6px; }
 .gallery-tabs button[aria-selected="true"] { color: var(--black); background: var(--ink); border-color: var(--ink); }
 .gallery-tabs button[aria-selected="true"] span { color: #555; }
-.photos { columns: 3 260px; column-gap: 12px; }
-.photos button {
-  display: block; width: 100%; margin: 0 0 12px; padding: 0; border: 1px solid var(--edge); border-radius: 6px;
-  overflow: hidden; background: var(--chip); cursor: zoom-in; break-inside: avoid;
+/* Rows that run edge to edge with no gaps: every photo keeps its shape, so landscapes come out wide and portraits tall (site.js sets the sizes). */
+.photos { display: grid; gap: 14px; }
+.photo-row { display: flex; gap: 14px; }
+.photos button { flex: none; padding: 0; border: 0; border-radius: 4px; overflow: hidden; background: var(--chip); cursor: zoom-in; }
+.photos img, .slider-track img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease, filter 0.4s ease; filter: saturate(0.9); }
+.photos button:hover img, .slider-track a:hover img { transform: scale(1.02); filter: none; }
+/* Five portrait photos at a time, with arrows on both sides to page through the rest. */
+.photo-slider { position: relative; }
+.slider-track {
+  display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 4 * 12px) / 5); gap: 12px;
+  overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none;
 }
-.photos img, .carousel img { display: block; width: 100%; height: auto; transition: transform 0.4s ease, filter 0.4s ease; filter: saturate(0.9); }
-.photos button:hover img, .carousel a:hover img { transform: scale(1.02); filter: none; }
-.show-all { justify-self: start; }
-/* Endless strip of portrait photos running edge to edge of the window, fading out at both sides. */
-.carousel {
-  width: 100vw; margin-left: calc(50% - 50vw); overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+.slider-track::-webkit-scrollbar { display: none; }
+.slider-track a { scroll-snap-align: start; aspect-ratio: 2 / 3; overflow: hidden; border-radius: 6px; border: 1px solid var(--edge); background: var(--chip); }
+.slider-track img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.slider-arrow {
+  position: absolute; top: 50%; translate: 0 -50%; z-index: 2; width: 38px; height: 38px; border-radius: 50%;
+  border: 1px solid var(--edge-strong); background: rgba(0, 0, 0, 0.6); color: var(--ink); font-size: 24px; line-height: 1;
+  cursor: pointer; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
 }
-.carousel-track { display: flex; gap: 12px; width: max-content; animation: carousel-loop var(--loop-seconds, 400s) linear infinite; }
-.carousel:hover .carousel-track, .carousel:focus-within .carousel-track { animation-play-state: paused; }
-.carousel a { flex: 0 0 auto; width: clamp(150px, 17vw, 220px); aspect-ratio: 2 / 3; overflow: hidden; border-radius: 6px; border: 1px solid var(--edge); background: var(--chip); }
-.carousel img { width: 100%; height: 100%; object-fit: cover; }
-@keyframes carousel-loop { to { transform: translateX(calc(-50% - 6px)); } }
+.slider-arrow:hover { background: rgba(40, 40, 40, 0.85); }
+.slider-arrow[data-direction="-1"] { left: -19px; }
+.slider-arrow[data-direction="1"] { right: -19px; }
 
 .viewer {
-  position: fixed; inset: 0; z-index: 50; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 10px;
+  position: fixed; inset: 0; z-index: 50; display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 10px;
   background: rgba(0, 0, 0, 0.9); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
   padding: calc(12px + env(safe-area-inset-top, 0px)) var(--gutter) calc(12px + env(safe-area-inset-bottom, 0px));
 }
 .viewer[hidden] { display: none; }
 .viewer-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .viewer figure { margin: 0; min-height: 0; display: grid; place-items: center; }
-.viewer img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 4px; }
-.viewer-controls { display: flex; justify-content: center; gap: 10px; }
+/* Always fits inside the window, whatever the photo's shape. */
+.viewer img { display: block; max-width: min(100%, calc(100vw - 2 * var(--gutter) - 100px)); max-height: calc(100dvh - 110px); width: auto; height: auto; object-fit: contain; border-radius: 4px; }
+.viewer-arrow { position: fixed; width: 46px; height: 46px; font-size: 28px; }
+.viewer-arrow[data-direction="-1"] { left: max(12px, var(--gutter)); }
+.viewer-arrow[data-direction="1"] { right: max(12px, var(--gutter)); }
 
 /* Contact */
 .contact { padding: clamp(22px, 4vw, 40px); display: grid; gap: 20px; justify-items: center; text-align: center; }
@@ -206,6 +230,9 @@ h2.section-title { margin: 0; font-weight: 500; font-size: 28px; line-height: 1.
 footer { color: var(--ink-faint); font-size: 14px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
 @media (max-width: 860px) {
+  .slider-track { grid-auto-columns: calc((100% - 2 * 12px) / 3); }
+  .slider-arrow[data-direction="-1"] { left: -8px; }
+  .slider-arrow[data-direction="1"] { right: -8px; }
   .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .steps { grid-auto-flow: row; }
   .steps li:not(:last-child)::after { top: auto; bottom: -6px; right: auto; left: 24px; width: 1px; height: 6px; }
@@ -213,15 +240,14 @@ footer { color: var(--ink-faint); font-size: 14px; display: flex; justify-conten
 @media (max-width: 600px) {
   .tiles { grid-template-columns: minmax(0, 1fr); }
   .story { grid-template-columns: minmax(0, 1fr); }
-  .role { grid-template-columns: minmax(0, 1fr); }
+  .role { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .role-rail { flex-direction: row; gap: 12px; }
+  .role-rail::after { display: none; }
   .lists { grid-template-columns: minmax(0, 1fr); }
-  .photos { columns: 2; column-gap: 8px; }
-  .photos button { margin-bottom: 8px; }
   .nav ul a { padding: 6px 9px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .tile, .photos img, .carousel img { transition: none; }
-  .carousel-track { animation: none; }
-  .carousel { overflow-x: auto; }
+  .tile, .photos img, .slider-track img { transition: none; }
+  .slider-track { scroll-behavior: auto; }
 }

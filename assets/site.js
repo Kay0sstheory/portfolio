@@ -1,4 +1,4 @@
-// Shared page behaviour: the faint moving light behind the glass, the home page name that docks into the top bar, the photo gallery where a page has one, and edit mode (?edit).
+// Shared page behaviour: the faint moving light behind the glass, the home page name that docks into the top bar, the photo gallery where a page has one, the photo slider's arrows, and edit mode (?edit).
 
 (function startLight() {
   const canvas = document.getElementById("light");
@@ -115,16 +115,29 @@
   document.fonts?.ready.then(measure);
 })();
 
+(function startPhotoSliders() {
+  // Each arrow moves one screenful of photos; past either end it wraps round to the other end.
+  document.querySelectorAll(".photo-slider").forEach(slider => {
+    const track = slider.querySelector(".slider-track");
+    slider.querySelectorAll(".slider-arrow").forEach(arrow => arrow.addEventListener("click", () => {
+      const direction = Number(arrow.dataset.direction);
+      const lastPosition = track.scrollWidth - track.clientWidth;
+      const atEnd = direction > 0 ? track.scrollLeft >= lastPosition - 2 : track.scrollLeft <= 2;
+      const target = atEnd ? (direction > 0 ? 0 : lastPosition) : track.scrollLeft + direction * (track.clientWidth + 12);
+      track.scrollTo({ left: target });
+    }));
+  });
+})();
+
 (function startGalleries() {
   const tabsElement = document.getElementById("gallery-tabs");
   if (!tabsElement) return;
   const galleries = window.PHOTO_GALLERIES || [];
   const gridElement = document.getElementById("photo-grid");
-  const showAllButton = document.getElementById("show-all");
   const viewer = document.getElementById("viewer");
   const viewerImage = document.getElementById("viewer-image");
   const viewerCount = document.getElementById("viewer-count");
-  const firstScreenful = 12;
+  const photoGap = 14;
   const requestedGallery = galleries.find(gallery => "#" + gallery.id === window.location.hash);
   let currentGallery = requestedGallery || galleries[0];
   let viewerIndex = 0;
@@ -135,6 +148,32 @@
     return;
   }
 
+  // Plans the order as rows: each landscape shares a row with one portrait (alternating sides), leftover portraits go
+  // three to a row, and the landscape rows are spread evenly between them. The viewer steps through this same order.
+  function mixShapes(photos) {
+    const portraits = photos.filter(photo => photo.height > photo.width);
+    const landscapes = photos.filter(photo => photo.height <= photo.width);
+    const pairedRows = [];
+    landscapes.forEach((landscape, index) => {
+      const partner = portraits.shift();
+      const row = partner ? (index % 2 ? [landscape, partner] : [partner, landscape]) : [landscape];
+      pairedRows.push(row);
+    });
+    const portraitRows = [];
+    while (portraits.length) portraitRows.push(portraits.splice(0, 3));
+    const totalRows = pairedRows.length + portraitRows.length;
+    const ordered = [];
+    for (let rowNumber = 0; rowNumber < totalRows; rowNumber++) {
+      // Hand out paired rows at even spacing among all rows, starting with one.
+      const pairedSoFar = Math.round((rowNumber + 1) * pairedRows.length / totalRows);
+      const pairedBefore = Math.round(rowNumber * pairedRows.length / totalRows);
+      const takePaired = (rowNumber === 0 && pairedRows.length) || (pairedSoFar > pairedBefore && pairedRows.length);
+      ordered.push(...(takePaired ? pairedRows.shift() : portraitRows.shift() || pairedRows.shift()));
+    }
+    return ordered;
+  }
+  galleries.forEach(gallery => { gallery.photos = mixShapes(gallery.photos); });
+
   function renderTabs() {
     tabsElement.innerHTML = "";
     galleries.forEach(gallery => {
@@ -143,32 +182,68 @@
       tab.setAttribute("role", "tab");
       tab.setAttribute("aria-selected", String(gallery === currentGallery));
       tab.innerHTML = `${gallery.name}<span>${gallery.photos.length}</span>`;
-      tab.addEventListener("click", () => { currentGallery = gallery; renderTabs(); renderGrid(false); });
+      tab.addEventListener("click", () => { currentGallery = gallery; renderTabs(); renderGrid(); });
       tabsElement.appendChild(tab);
     });
   }
 
-  function renderGrid(showEverything) {
-    const photos = showEverything ? currentGallery.photos : currentGallery.photos.slice(0, firstScreenful);
-    gridElement.innerHTML = "";
+  // Fills each row edge to edge: photos are added at a target height until the row is too wide,
+  // then the whole row is scaled down to fit exactly.
+  function splitIntoRows(photos, rowWidth, targetHeight) {
+    const rows = [];
+    let row = [];
+    let shapeTotal = 0;
     photos.forEach((photo, index) => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.setAttribute("aria-label", `Open ${currentGallery.name} photo ${index + 1}`);
-      button.innerHTML = `<img src="${photo.thumb}" width="${photo.width}" height="${photo.height}" loading="lazy" decoding="async" alt="${currentGallery.name} photo ${index + 1}">`;
-      button.addEventListener("click", () => openViewer(index));
-      gridElement.appendChild(button);
+      row.push(index);
+      shapeTotal += photo.width / photo.height;
+      const widthAtTarget = shapeTotal * targetHeight + photoGap * (row.length - 1);
+      if (widthAtTarget >= rowWidth) {
+        rows.push({ indexes: row, height: (rowWidth - photoGap * (row.length - 1)) / shapeTotal });
+        row = [];
+        shapeTotal = 0;
+      }
     });
-    showAllButton.hidden = currentGallery.photos.length <= photos.length;
-    showAllButton.textContent = `Show all ${currentGallery.photos.length} ${currentGallery.name.toLowerCase()} photos`;
+    if (row.length) {
+      // A last row that is already mostly full is stretched to the edge too; a short one stays at the target height.
+      const fullHeight = (rowWidth - photoGap * (row.length - 1)) / shapeTotal;
+      rows.push({ indexes: row, height: fullHeight < targetHeight * 1.6 ? fullHeight : targetHeight });
+    }
+    return rows;
   }
-  showAllButton.addEventListener("click", () => renderGrid(true));
+
+  function renderGrid() {
+    const photos = currentGallery.photos;
+    const rowWidth = gridElement.clientWidth;
+    const targetHeight = rowWidth < 600 ? 300 : 520;
+    gridElement.innerHTML = "";
+    splitIntoRows(photos, rowWidth, targetHeight).forEach(row => {
+      const rowElement = document.createElement("div");
+      rowElement.className = "photo-row";
+      row.indexes.forEach(index => {
+        const photo = photos[index];
+        const button = document.createElement("button");
+        button.type = "button";
+        button.style.width = `${row.height * photo.width / photo.height}px`;
+        button.style.height = `${row.height}px`;
+        button.setAttribute("aria-label", `Open ${currentGallery.name} photo ${index + 1}`);
+        button.innerHTML = `<img src="${photo.thumb}" loading="lazy" decoding="async" alt="${currentGallery.name} photo ${index + 1}">`;
+        button.addEventListener("click", () => openViewer(index));
+        rowElement.appendChild(button);
+      });
+      gridElement.appendChild(rowElement);
+    });
+  }
+  let resizeTimer = null;
+  window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(renderGrid, 150); });
 
   function showViewerPhoto() {
-    const photo = currentGallery.photos[viewerIndex];
+    const photos = currentGallery.photos;
+    const photo = photos[viewerIndex];
     viewerImage.src = photo.full;
     viewerImage.alt = `${currentGallery.name} photo ${viewerIndex + 1}`;
-    viewerCount.textContent = `${currentGallery.name}  ${viewerIndex + 1} / ${currentGallery.photos.length}`;
+    viewerCount.textContent = `${currentGallery.name}  ${viewerIndex + 1} / ${photos.length}`;
+    // Load the neighbours now so stepping left or right is instant.
+    [1, -1].forEach(offset => { new Image().src = photos[(viewerIndex + offset + photos.length) % photos.length].full; });
   }
   function step(direction) {
     const total = currentGallery.photos.length;
@@ -208,7 +283,7 @@
   });
 
   renderTabs();
-  renderGrid(false);
+  renderGrid();
 })();
 
 // Edit mode stays on across pages once a page is opened with ?edit, until "Leave edit mode" is pressed.

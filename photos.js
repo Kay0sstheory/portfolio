@@ -46,12 +46,6 @@ window.PHOTO_GALLERIES = [
     "height": 700
    },
    {
-    "full": "photos/vietnam-1/08-e9ee424c-full.jpg",
-    "thumb": "photos/vietnam-1/08-e9ee424c-thumb.jpg",
-    "width": 700,
-    "height": 466
-   },
-   {
     "full": "photos/vietnam-1/09-13acf075-full.jpg",
     "thumb": "photos/vietnam-1/09-13acf075-thumb.jpg",
     "width": 466,
@@ -60,12 +54,6 @@ window.PHOTO_GALLERIES = [
    {
     "full": "photos/vietnam-1/10-a4ad82cf-full.jpg",
     "thumb": "photos/vietnam-1/10-a4ad82cf-thumb.jpg",
-    "width": 466,
-    "height": 700
-   },
-   {
-    "full": "photos/vietnam-1/11-64030b76-full.jpg",
-    "thumb": "photos/vietnam-1/11-64030b76-thumb.jpg",
     "width": 466,
     "height": 700
    },
@@ -104,18 +92,6 @@ window.PHOTO_GALLERIES = [
     "thumb": "photos/vietnam-1/17-93ed241d-thumb.jpg",
     "width": 700,
     "height": 466
-   },
-   {
-    "full": "photos/vietnam-1/18-49795a6c-full.jpg",
-    "thumb": "photos/vietnam-1/18-49795a6c-thumb.jpg",
-    "width": 466,
-    "height": 700
-   },
-   {
-    "full": "photos/vietnam-1/19-62b7f30f-full.jpg",
-    "thumb": "photos/vietnam-1/19-62b7f30f-thumb.jpg",
-    "width": 466,
-    "height": 700
    },
    {
     "full": "photos/vietnam-1/20-87c667b3-full.jpg",
@@ -168,12 +144,6 @@ window.PHOTO_GALLERIES = [
    {
     "full": "photos/vietnam-1/28-7a7d27d1-full.jpg",
     "thumb": "photos/vietnam-1/28-7a7d27d1-thumb.jpg",
-    "width": 466,
-    "height": 700
-   },
-   {
-    "full": "photos/vietnam-1/29-118beefc-full.jpg",
-    "thumb": "photos/vietnam-1/29-118beefc-thumb.jpg",
     "width": 466,
     "height": 700
    },
@@ -648,12 +618,6 @@ window.PHOTO_GALLERIES = [
    {
     "full": "photos/aviation-photography/05-f4730e23-full.jpg",
     "thumb": "photos/aviation-photography/05-f4730e23-thumb.jpg",
-    "width": 560,
-    "height": 700
-   },
-   {
-    "full": "photos/aviation-photography/06-d2893454-full.jpg",
-    "thumb": "photos/aviation-photography/06-d2893454-thumb.jpg",
     "width": 560,
     "height": 700
    },
