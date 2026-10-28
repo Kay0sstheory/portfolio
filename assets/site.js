@@ -300,3 +300,9 @@
   editorScript.src = document.querySelector('script[src*="assets/site.js"]').src.replace(/site\.js(\?.*)?$/, "editor.js?v=" + Date.now());
   document.body.appendChild(editorScript);
 })();
+
+// Visitors who ask for less motion get the still image instead of a looping clip.
+(() => {
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.querySelectorAll("video[autoplay]").forEach((video) => { video.removeAttribute("autoplay"); video.pause(); });
+})();
