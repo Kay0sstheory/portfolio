@@ -53,7 +53,9 @@ img { max-width: 100%; }
   padding: 8px 8px 8px 18px;
 }
 .nav .home { font-weight: 500; font-size: 16px; letter-spacing: -0.02em; text-decoration: none; }
-.nav .home.waits-for-hero { visibility: hidden; }
+/* Same letter spacing as the hero name, so the hand-over from the flying name is invisible. */
+.nav .home.waits-for-hero { visibility: hidden; letter-spacing: -0.05em; }
+.nav .home.waits-for-hero.is-docked { visibility: visible; }
 .nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 2px; flex-wrap: wrap; }
 .nav ul a { display: block; font-size: 14px; padding: 6px 12px; border-radius: 6px; color: var(--ink-soft); text-decoration: none; }
 .nav ul a:hover, .nav ul a[aria-current="page"] { color: var(--ink); background: var(--chip); }
@@ -85,7 +87,6 @@ h2.section-title { margin: 0; font-weight: 500; font-size: 28px; line-height: 1.
 .hero h1 { margin: 0; font-weight: 500; font-size: clamp(28px, 8.6vw, 88px); line-height: 0.96; letter-spacing: -0.05em; }
 /* Kept on one line so it can shrink into the top bar as the page scrolls (site.js). */
 .hero .hero-name { display: inline-block; position: relative; z-index: 11; white-space: nowrap; transform-origin: 0 0; will-change: transform; }
-.hero .hero-name.is-docked { cursor: pointer; }
 .hero .role-line { display: block; margin-top: 0.4em; font-size: clamp(18px, 3.2vw, 37px); line-height: 1.2; letter-spacing: -0.02em; color: var(--ink-soft); font-weight: 400; }
 .page-head { display: grid; gap: 14px; padding-top: clamp(12px, 4vw, 40px); }
 .page-head h1 { margin: 0; font-weight: 500; font-size: clamp(40px, 7vw, 72px); line-height: 1; letter-spacing: -0.05em; text-wrap: balance; }

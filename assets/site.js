@@ -92,7 +92,8 @@
   }
 
   // The name rides up with the page, shrinking and sliding sideways, and lands in the bar exactly
-  // when its natural scroll would carry it there; after that it holds still in the bar.
+  // when its natural scroll would carry it there. Then the bar's own copy takes over: holding the
+  // flying copy still against the scroll trails by a frame and visibly shakes.
   function update() {
     framePending = false;
     const travel = Math.max(1, start.top - target.top);
@@ -101,16 +102,15 @@
     const shiftX = (target.left - start.left) * progress;
     const shiftY = (target.top - start.top) * progress + window.scrollY;
     heroName.style.transform = `translate(${shiftX}px, ${shiftY}px) scale(${scale})`;
-    heroName.classList.toggle("is-docked", progress >= 1);
+    const docked = progress >= 1;
+    heroName.style.visibility = docked ? "hidden" : "";
+    navName.classList.toggle("is-docked", docked);
   }
 
   window.addEventListener("scroll", () => {
     if (!framePending) { framePending = true; requestAnimationFrame(update); }
   }, { passive: true });
   window.addEventListener("resize", measure);
-  heroName.addEventListener("click", () => {
-    if (heroName.classList.contains("is-docked")) window.scrollTo({ top: 0 });
-  });
   measure();
   document.fonts?.ready.then(measure);
 })();
