@@ -16,6 +16,7 @@
   --radius: 8px;
   --blur: 12px;
   --gutter: max(20px, env(safe-area-inset-left, 0px));
+  --nav-height: 52px;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 96px; overflow-x: clip; }
@@ -83,9 +84,11 @@ h2.section-title { margin: 0; font-weight: 500; font-size: 28px; line-height: 1.
 .button.live:hover { filter: brightness(1.1); }
 
 /* Hero (home) and page heads (inner pages) */
-/* Pulled up about one line of the name closer to the top bar. */
-.hero { display: grid; gap: 22px; margin-top: clamp(-40px, -4vw, -8px); }
-.hero h1 { margin: 0; font-weight: 500; font-size: clamp(24px, 6.9vw, 70px); line-height: 0.96; letter-spacing: -0.05em; }
+/* The gap between the top bar and the tops of the name's letters equals the bar's own height; 0.13 of the size is the
+   empty room the font leaves above its capitals. */
+.hero { display: grid; gap: 22px; margin-top: calc(var(--nav-height) - clamp(56px, 8vw, 96px) - 0.13 * var(--hero-name-size)); }
+.hero { --hero-name-size: clamp(24px, 6.9vw, 70px); }
+.hero h1 { margin: 0; font-weight: 500; font-size: var(--hero-name-size); line-height: 0.96; letter-spacing: -0.05em; }
 /* Kept on one line so it can shrink into the top bar as the page scrolls (site.js). */
 .hero .hero-name { display: inline-block; position: relative; z-index: 11; white-space: nowrap; transform-origin: 0 0; will-change: transform; }
 .hero .role-line { display: block; margin-top: 0.4em; font-size: clamp(18px, 3.2vw, 37px); line-height: 1.2; letter-spacing: -0.02em; color: var(--ink-soft); font-weight: 400; }
