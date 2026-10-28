@@ -1,4 +1,4 @@
-// Shared page behaviour: the faint moving light behind the glass, and the photo gallery where a page has one.
+// Shared page behaviour: the faint moving light behind the glass, the home page name that docks into the top bar, and the photo gallery where a page has one.
 
 (function startLight() {
   const canvas = document.getElementById("light");
@@ -70,6 +70,49 @@
   } catch (shaderError) {
     console.warn("Background light unavailable, page shows plain black instead:", shaderError);
   }
+})();
+
+(function dockHeroName() {
+  const heroName = document.getElementById("hero-name");
+  const navName = document.querySelector(".nav .home");
+  if (!heroName || !navName) return;
+  let start = null;
+  let target = null;
+  let framePending = false;
+
+  // Measured with no transform applied; the top bar is sticky, so its spot on screen never changes.
+  function measure() {
+    heroName.style.transform = "";
+    const nameBox = heroName.getBoundingClientRect();
+    const navBox = navName.getBoundingClientRect();
+    const scale = navBox.width / nameBox.width;
+    start = { left: nameBox.left, top: nameBox.top + window.scrollY };
+    target = { left: navBox.left, top: navBox.top + navBox.height / 2 - (nameBox.height * scale) / 2, scale };
+    update();
+  }
+
+  // The name rides up with the page, shrinking and sliding sideways, and lands in the bar exactly
+  // when its natural scroll would carry it there; after that it holds still in the bar.
+  function update() {
+    framePending = false;
+    const travel = Math.max(1, start.top - target.top);
+    const progress = Math.min(1, Math.max(0, window.scrollY / travel));
+    const scale = 1 + (target.scale - 1) * progress;
+    const shiftX = (target.left - start.left) * progress;
+    const shiftY = (target.top - start.top) * progress + window.scrollY;
+    heroName.style.transform = `translate(${shiftX}px, ${shiftY}px) scale(${scale})`;
+    heroName.classList.toggle("is-docked", progress >= 1);
+  }
+
+  window.addEventListener("scroll", () => {
+    if (!framePending) { framePending = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener("resize", measure);
+  heroName.addEventListener("click", () => {
+    if (heroName.classList.contains("is-docked")) window.scrollTo({ top: 0 });
+  });
+  measure();
+  document.fonts?.ready.then(measure);
 })();
 
 (function startGalleries() {
