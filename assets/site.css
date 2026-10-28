@@ -83,8 +83,9 @@ h2.section-title { margin: 0; font-weight: 500; font-size: 28px; line-height: 1.
 .button.live:hover { filter: brightness(1.1); }
 
 /* Hero (home) and page heads (inner pages) */
-.hero { display: grid; gap: 22px; padding-top: clamp(4px, 2.5vw, 28px); }
-.hero h1 { margin: 0; font-weight: 500; font-size: clamp(28px, 8.6vw, 88px); line-height: 0.96; letter-spacing: -0.05em; }
+/* Pulled up about one line of the name closer to the top bar. */
+.hero { display: grid; gap: 22px; margin-top: clamp(-40px, -4vw, -8px); }
+.hero h1 { margin: 0; font-weight: 500; font-size: clamp(24px, 6.9vw, 70px); line-height: 0.96; letter-spacing: -0.05em; }
 /* Kept on one line so it can shrink into the top bar as the page scrolls (site.js). */
 .hero .hero-name { display: inline-block; position: relative; z-index: 11; white-space: nowrap; transform-origin: 0 0; will-change: transform; }
 .hero .role-line { display: block; margin-top: 0.4em; font-size: clamp(18px, 3.2vw, 37px); line-height: 1.2; letter-spacing: -0.02em; color: var(--ink-soft); font-weight: 400; }
