@@ -2,7 +2,10 @@
 // Changes live only in this browser until "Copy my changes" is pasted to Claude, who makes them permanent in the site files.
 
 (function startEditor() {
-  const storageKey = "site-editor:" + location.pathname;
+  // Saved tweaks are tied to the look they were made on; once the site is updated they are dropped,
+  // so changes already built in are never applied a second time on top of themselves.
+  const siteLook = (document.querySelector('link[href*="site.css"]')?.href.match(/v=(\w+)/) || [])[1] || "unversioned";
+  const storageKey = "site-editor:" + location.pathname + ":" + siteLook;
   const state = loadState();
   let selected = null;
   let picking = true;
