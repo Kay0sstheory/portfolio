@@ -1,4 +1,4 @@
-// Shared page behaviour: the faint moving light behind the glass, the home page name that docks into the top bar, and the photo gallery where a page has one.
+// Shared page behaviour: the faint moving light behind the glass, the home page name that docks into the top bar, the photo gallery where a page has one, and edit mode (?edit).
 
 (function startLight() {
   const canvas = document.getElementById("light");
@@ -209,4 +209,19 @@
 
   renderTabs();
   renderGrid(false);
+})();
+
+// Edit mode stays on across pages once a page is opened with ?edit, until "Leave edit mode" is pressed.
+(function loadEditorWhenAsked() {
+  let editorOn = new URLSearchParams(location.search).has("edit");
+  try {
+    if (editorOn) localStorage.setItem("site-editor-on", "1");
+    else editorOn = localStorage.getItem("site-editor-on") === "1";
+  } catch (storageError) {
+    console.warn("Edit mode can't remember itself between pages in this browser:", storageError);
+  }
+  if (!editorOn) return;
+  const editorScript = document.createElement("script");
+  editorScript.src = document.querySelector('script[src*="assets/site.js"]').src.replace(/site\.js(\?.*)?$/, "editor.js?v=" + Date.now());
+  document.body.appendChild(editorScript);
 })();
