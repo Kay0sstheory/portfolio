@@ -1,4 +1,4 @@
-// Shared page behaviour: the faint moving light behind the glass, the home page name that docks into the top bar, the photo gallery where a page has one, the photo slider's arrows, and edit mode (?edit).
+// Shared page behaviour: the faint moving light behind the glass, the home page name and each page's heading that dock into the top bar, the photo gallery where a page has one, the photo slider's arrows, and edit mode (?edit).
 
 (function startLight() {
   const canvas = document.getElementById("light");
@@ -72,26 +72,32 @@
   }
 })();
 
-(function dockHeroName() {
+(function dockHeadings() {
+  // Home: the big name flies into the bar's name slot. Inner pages: the page heading flies into the slot after the dot.
   const heroName = document.getElementById("hero-name");
-  const navName = document.querySelector(".nav .home");
-  if (!heroName || !navName) return;
+  const pageTitle = document.getElementById("page-title");
+  if (heroName) dockIntoBar(heroName, document.querySelector(".nav .home"), document.querySelector(".nav .home"));
+  if (pageTitle) dockIntoBar(pageTitle, document.querySelector(".nav-page-title"), document.querySelector(".nav-page"));
+})();
+
+function dockIntoBar(flying, slot, revealedWhenDocked) {
+  if (!flying || !slot) return;
   let start = null;
   let target = null;
   let framePending = false;
 
   // Measured with no transform applied; the top bar is sticky, so its spot on screen never changes.
   function measure() {
-    heroName.style.transform = "";
-    const nameBox = heroName.getBoundingClientRect();
-    const navBox = navName.getBoundingClientRect();
-    const scale = navBox.width / nameBox.width;
-    start = { left: nameBox.left, top: nameBox.top + window.scrollY };
-    target = { left: navBox.left, top: navBox.top + navBox.height / 2 - (nameBox.height * scale) / 2, scale };
+    flying.style.transform = "";
+    const flyingBox = flying.getBoundingClientRect();
+    const slotBox = slot.getBoundingClientRect();
+    const scale = slotBox.width / flyingBox.width;
+    start = { left: flyingBox.left, top: flyingBox.top + window.scrollY };
+    target = { left: slotBox.left, top: slotBox.top + slotBox.height / 2 - (flyingBox.height * scale) / 2, scale };
     update();
   }
 
-  // The name rides up with the page, shrinking and sliding sideways, and lands in the bar exactly
+  // The heading rides up with the page, shrinking and sliding sideways, and lands in the bar exactly
   // when its natural scroll would carry it there. Then the bar's own copy takes over: holding the
   // flying copy still against the scroll trails by a frame and visibly shakes.
   function update() {
@@ -101,10 +107,10 @@
     const scale = 1 + (target.scale - 1) * progress;
     const shiftX = (target.left - start.left) * progress;
     const shiftY = (target.top - start.top) * progress + window.scrollY;
-    heroName.style.transform = `translate(${shiftX}px, ${shiftY}px) scale(${scale})`;
+    flying.style.transform = `translate(${shiftX}px, ${shiftY}px) scale(${scale})`;
     const docked = progress >= 1;
-    heroName.style.visibility = docked ? "hidden" : "";
-    navName.classList.toggle("is-docked", docked);
+    flying.style.visibility = docked ? "hidden" : "";
+    revealedWhenDocked.classList.toggle("is-docked", docked);
   }
 
   window.addEventListener("scroll", () => {
@@ -113,7 +119,7 @@
   window.addEventListener("resize", measure);
   measure();
   document.fonts?.ready.then(measure);
-})();
+}
 
 (function startPhotoSliders() {
   // Each arrow moves one screenful of photos; past either end it wraps round to the other end.
@@ -305,4 +311,49 @@
 (() => {
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   document.querySelectorAll("video[autoplay]").forEach((video) => { video.removeAttribute("autoplay"); video.pause(); });
+})();
+
+(function contactForm() {
+  // Sends the contact form without leaving the page, after cheap checks that turn away most automated spam.
+  const form = document.getElementById("contact-form");
+  if (!form) return;
+  const status = document.getElementById("contact-status");
+  const button = form.querySelector("button[type=submit]");
+  const openedAt = Date.now();
+  const tooFastMilliseconds = 4000;
+  const cooldownMilliseconds = 10 * 60 * 1000;
+  const cooldownKey = "contact-last-sent";
+
+  function show(message, isProblem) {
+    status.textContent = message;
+    status.classList.toggle("problem", Boolean(isProblem));
+  }
+  function lastSentAt() {
+    try { return Number(localStorage.getItem(cooldownKey)) || 0; } catch (error) { return 0; }
+  }
+  function rememberSent() {
+    try { localStorage.setItem(cooldownKey, String(Date.now())); } catch (error) { /* private window: no cooldown, the server filter still applies */ }
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (form.botcheck.checked) { show(status.dataset.sent); form.reset(); return; }
+    if (Date.now() - openedAt < tooFastMilliseconds) { show("That was quick. Give it a few seconds and try again.", true); return; }
+    if (Date.now() - lastSentAt() < cooldownMilliseconds) { show("Your last message already arrived. You can send another in a few minutes.", true); return; }
+    button.disabled = true;
+    show("Sending…");
+    try {
+      const response = await fetch(form.action, { method: "POST", headers: { Accept: "application/json" }, body: new FormData(form) });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message || "send failed");
+      rememberSent();
+      form.reset();
+      show(status.dataset.sent);
+    } catch (error) {
+      console.error("contact form:", error);
+      show("It didn't send. Please try again, or email me at the address on the right.", true);
+    } finally {
+      button.disabled = false;
+    }
+  });
 })();

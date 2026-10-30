@@ -57,6 +57,13 @@ img { max-width: 100%; }
 /* Same letter spacing as the hero name, so the hand-over from the flying name is invisible. */
 .nav .home.waits-for-hero { visibility: hidden; letter-spacing: -0.05em; }
 .nav .home.waits-for-hero.is-docked { visibility: visible; }
+/* Inner pages: the page heading flies up and lands here, after a small dot, beside the name. */
+.nav-title { display: flex; align-items: baseline; min-width: 0; white-space: nowrap; }
+.nav-page { visibility: hidden; font-weight: 500; font-size: 19px; letter-spacing: -0.05em; }
+.nav-page.is-docked { visibility: visible; }
+.nav-separator { margin: 0 0.5em; color: var(--ink-faint); letter-spacing: 0; }
+.nav-page-title { display: inline-block; }
+.page-title { display: inline-block; position: relative; z-index: 11; white-space: nowrap; transform-origin: 0 0; will-change: transform; }
 .nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 10px; flex-wrap: wrap; }
 .nav ul a { display: block; font-size: 16px; font-weight: 450; padding: 6px 13px; border-radius: 6px; color: #aeaeae; text-decoration: none; }
 .nav ul a:hover, .nav ul a[aria-current="page"] { color: var(--ink); background: var(--chip); }
@@ -64,7 +71,8 @@ img { max-width: 100%; }
 /* Shared type */
 .lead { margin: 0; font-size: clamp(18px, 2.2vw, 22px); line-height: 1.5; max-width: 46ch; }
 .lead.full-line { max-width: none; }
-.page-head .lead { margin-top: 14px; }
+/* Every page's intro line runs the full width, like the Resume page's. */
+.page-head .lead { margin-top: 14px; max-width: none; }
 /* Whatever follows a page title sits close under it, instead of a full section gap away. */
 .page-head + * { margin-top: calc(36px - clamp(56px, 8vw, 96px)); }
 .prose { display: grid; gap: 18px; }
@@ -104,7 +112,7 @@ h2.section-title { margin: 0; font-weight: 500; font-size: 28px; line-height: 1.
 .page-head h1 { margin: 0 0 0 -0.05em; font-weight: 500; font-size: var(--hero-name-size); line-height: 0.96; letter-spacing: -0.05em; text-wrap: balance; }
 
 /* Build tiles */
-.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: start; }
 .tile {
   display: grid; grid-template-rows: auto auto 1fr auto; gap: 10px; padding: 20px; text-decoration: none;
   transition: border-color 0.2s ease, transform 0.2s ease;
@@ -138,10 +146,13 @@ h2.section-title { margin: 0; font-weight: 500; font-size: 28px; line-height: 1.
   content: ""; position: absolute; top: 50%; right: -9px; width: 8px; height: 1px; background: var(--edge-strong);
 }
 .demo-video { display: block; width: min(100%, 360px); aspect-ratio: 9 / 16; border-radius: 10px; border: 1px solid var(--edge); background: #0d0d0f; }
+.demo-video.is-wide { width: 100%; aspect-ratio: 16 / 9; }
 .shots { display: grid; gap: 14px; }
 .shots figure { margin: 0; display: grid; gap: 8px; }
 .shots img { display: block; width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--edge); }
 .shots .is-portrait img { width: min(100%, 360px); }
+.slider-track.shots-track { grid-auto-columns: 100%; gap: 12px; }
+.shots-track figure { scroll-snap-align: start; }
 .shots figcaption { font-size: 14px; color: var(--ink-soft); }
 .empty-shots { padding: 28px; display: grid; gap: 6px; }
 .empty-shots p { margin: 0; }
@@ -248,10 +259,32 @@ footer { color: var(--ink-faint); font-size: 14px; display: flex; justify-conten
   .role-rail { flex-direction: row; gap: 12px; }
   .role-rail::after { display: none; }
   .lists { grid-template-columns: minmax(0, 1fr); }
-  .nav ul a { padding: 6px 9px; }
+  .nav ul { gap: 0; margin-left: -6px; }
+  .nav ul a { padding: 5px 6px; font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .tile, .photos img, .slider-track img { transition: none; }
   .slider-track { scroll-behavior: auto; }
 }
+
+/* Contact page: the form on the left, other ways to reach me on the right; stacks on phones. */
+.contact-page { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.contact-form { padding: clamp(20px, 3.5vw, 32px); display: grid; gap: 18px; }
+.contact-form label { display: grid; gap: 8px; font-family: var(--font-label); font-size: 13px; color: var(--ink-soft); }
+.contact-form input, .contact-form textarea {
+  font: inherit; font-family: var(--font-body); font-size: 16px; color: var(--ink); background: var(--chip);
+  border: 1px solid var(--edge); border-radius: 6px; padding: 11px 14px; width: 100%;
+}
+.contact-form textarea { resize: vertical; min-height: 140px; }
+.contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--edge-strong); }
+.contact-form .trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.contact-form button[disabled] { opacity: 0.5; cursor: wait; }
+.form-status { font-size: 15px; color: var(--ink-soft); }
+.form-status.problem { color: #ff8a80; }
+.contact-other { display: grid; gap: 14px; padding-top: 8px; }
+.contact-other p { margin: 0; }
+.contact-other .email { font-family: var(--font-label); font-size: 14px; color: var(--ink-soft); user-select: all; overflow-wrap: anywhere; }
+@media (max-width: 760px) { .contact-page { grid-template-columns: minmax(0, 1fr); } }
+.contact-form[hidden] { display: none; }
+.contact-form[hidden] + .contact-other { padding-top: 0; }
