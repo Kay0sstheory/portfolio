@@ -84,7 +84,7 @@ h2.section-title { margin: 0; font-weight: 500; font-size: 28px; line-height: 1.
 .section-head a { font-size: 15px; color: var(--ink-soft); }
 .stack { display: grid; gap: 24px; min-width: 0; }
 
-.actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
 .button {
   font: inherit; font-size: 15px; padding: 10px 18px; border-radius: 6px; border: 1px solid var(--edge); cursor: pointer;
   color: var(--ink); background: var(--chip); text-decoration: none; transition: background 0.15s ease, border-color 0.15s ease;
@@ -105,8 +105,9 @@ h2.section-title { margin: 0; font-weight: 500; font-size: 28px; line-height: 1.
 .hero .hero-name { display: inline-block; margin-left: -0.05em; position: relative; z-index: 11; white-space: nowrap; transform-origin: 0 0; will-change: transform; }
 .hero .role-line { display: block; margin-top: clamp(10px, 1.4vw, 23px); font-size: clamp(16px, 1.95vw, 22px); line-height: 1.2; letter-spacing: -0.02em; color: var(--ink-soft); font-weight: 400; }
 /* Home: About sits closer under the hero, and the two buttons follow the About text. */
-.home-about { margin-top: calc(56px - clamp(56px, 8vw, 96px)); }
-.home-about .actions { margin-top: 44px; }
+/* Equal room above and below the About block, so it sits centred between the name and the buttons. */
+.home-about { margin-top: calc(28px - clamp(56px, 8vw, 96px)); }
+.home-about .actions { margin-top: 6px; }
 .hero .lead { font-size: clamp(15px, 1.6vw, 17px); margin-top: 14px; }
 .page-head { display: grid; gap: 14px; margin-top: calc(var(--nav-height) - clamp(56px, 8vw, 96px) - 0.13 * var(--hero-name-size)); --hero-name-size: clamp(24px, 6.9vw, 70px); }
 .page-head h1 { margin: 0 0 0 -0.05em; font-weight: 500; font-size: var(--hero-name-size); line-height: 0.96; letter-spacing: -0.05em; text-wrap: balance; }
@@ -118,7 +119,7 @@ h2.section-title { margin: 0; font-weight: 500; font-size: 28px; line-height: 1.
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 .tile.has-video { grid-template-rows: auto auto auto 1fr auto; }
-.tile .tile-video { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center top; display: block; border-radius: 6px; border: 1px solid var(--edge); background: #0d0d0f; }
+.tile .tile-video { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: center top; display: block; border-radius: 6px; border: 1px solid var(--edge); background: #0d0d0f; }
 .tile:hover { border-color: var(--edge-strong); transform: translateY(-2px); }
 .tile .tile-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
 .tile img { width: 52px; height: 52px; display: block; }
