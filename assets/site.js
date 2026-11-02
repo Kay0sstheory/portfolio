@@ -1,4 +1,4 @@
-// Shared page behaviour: the faint moving light behind the glass, the home page name and each page's heading that dock into the top bar, the photo gallery where a page has one, the photo slider's arrows, and edit mode (?edit).
+// Shared page behaviour: the faint moving light behind the glass, the home page name and each page's heading that dock into the top bar, the photo gallery where a page has one, and the photo slider's arrows.
 
 (function startLight() {
   const canvas = document.getElementById("light");
@@ -292,19 +292,15 @@ function dockIntoBar(flying, slot, revealedWhenDocked) {
   renderGrid();
 })();
 
-// Edit mode stays on across pages once a page is opened with ?edit, until "Leave edit mode" is pressed.
-(function loadEditorWhenAsked() {
-  let editorOn = new URLSearchParams(location.search).has("edit");
+// Edit mode was retired; browsers that once switched it on still hold its notes, so clear them.
+(function forgetRetiredEditMode() {
   try {
-    if (editorOn) localStorage.setItem("site-editor-on", "1");
-    else editorOn = localStorage.getItem("site-editor-on") === "1";
+    Object.keys(localStorage)
+      .filter((key) => key === "site-editor-on" || key.startsWith("site-editor:"))
+      .forEach((key) => localStorage.removeItem(key));
   } catch (storageError) {
-    console.warn("Edit mode can't remember itself between pages in this browser:", storageError);
+    console.warn("Couldn't clear old edit-mode notes in this browser:", storageError);
   }
-  if (!editorOn) return;
-  const editorScript = document.createElement("script");
-  editorScript.src = document.querySelector('script[src*="assets/site.js"]').src.replace(/site\.js(\?.*)?$/, "editor.js?v=" + Date.now());
-  document.body.appendChild(editorScript);
 })();
 
 // Visitors who ask for less motion get the still image instead of a looping clip.
