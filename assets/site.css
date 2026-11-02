@@ -292,3 +292,10 @@ footer { color: var(--ink-faint); font-size: 14px; display: flex; justify-conten
 @media (max-width: 760px) { .contact-page { grid-template-columns: minmax(0, 1fr); } }
 .contact-form[hidden] { display: none; }
 .contact-form[hidden] + .contact-other { padding-top: 0; }
+
+/* Home page builds: smaller tiles, five to a row (each 40% narrower than the Builds page's three). */
+.hero ~ .stack .tiles { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+.hero ~ .stack .tile h3 { font-size: 17px; }
+.hero ~ .stack .tile p, .hero ~ .stack .tile .open { font-size: 15px; }
+@media (max-width: 1100px) { .hero ~ .stack .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .hero ~ .stack .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
