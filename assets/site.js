@@ -353,3 +353,13 @@ function dockIntoBar(flying, slot, revealedWhenDocked) {
     }
   });
 })();
+
+// Build cards: play the short preview while the pointer is over the card (or it has keyboard focus).
+document.querySelectorAll('.tile').forEach(tile => {
+  const video = tile.querySelector('.tile-thumb video');
+  if (!video || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const start = () => { video.currentTime = 0; video.play().then(() => tile.classList.add('is-playing')).catch(() => {}); };
+  const stop = () => { tile.classList.remove('is-playing'); video.pause(); };
+  tile.addEventListener('mouseenter', start); tile.addEventListener('focus', start);
+  tile.addEventListener('mouseleave', stop); tile.addEventListener('blur', stop);
+});
