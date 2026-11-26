@@ -1,8 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#0D0D0F"/><rect x="10" y="10" width="492" height="492" rx="104" fill="none" stroke="#2A2A30" stroke-width="4"/>
-<path d="M136 412 V236 C 136 160, 190 100, 256 100 C 322 100, 376 160, 376 236 V412 Z" fill="none" stroke="#7FD8E6" stroke-width="28" stroke-linejoin="round"/>
-<path d="M256 100 V412" stroke="#7FD8E6" stroke-width="12" opacity="0.4"/>
-<path d="M184 318 C 214 270, 296 266, 330 312 C 300 352, 222 360, 184 318 Z" fill="#7FD8E6"/>
-<path d="M188 318 L148 286 L158 318 L148 350 Z" fill="#7FD8E6"/>
-<path d="M262 288 C 270 268, 290 262, 300 270" fill="none" stroke="#7FD8E6" stroke-width="12" stroke-linecap="round"/>
-<circle cx="304" cy="308" r="8" fill="#0D0D0F"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<defs><linearGradient id="c-oriel-fish" x1="0" y1="0" x2="0.3" y2="1">
+<stop offset="0" stop-color="#60CAF9"/><stop offset="1" stop-color="#38BDF8"/></linearGradient></defs>
+<rect width="512" height="512" rx="116" fill="url(#c-oriel-fish)"/>
+<svg x="126" y="126" width="260" height="260" viewBox="0 0 256 256" fill="#0C2A37"><path d="M168,76a12,12,0,1,1-12-12A12,12,0,0,1,168,76Zm48.72,67.64c-19.37,34.9-55.44,53.76-107.24,56.1l-22,51.41A8,8,0,0,1,80.1,256l-.51,0a8,8,0,0,1-7.19-5.78L57.6,198.39,5.8,183.56a8,8,0,0,1-1-15.05l51.41-22c2.35-51.78,21.21-87.84,56.09-107.22,24.75-13.74,52.74-15.84,71.88-15.18,18.64.64,36,4.27,38.86,6a8,8,0,0,1,2.83,2.83c1.69,2.85,5.33,20.21,6,38.85C232.55,90.89,230.46,118.89,216.72,143.64Zm-4.3-100.07c-14.15-3-64.1-11-100.3,14.75a81.21,81.21,0,0,0-16,15.07,36,36,0,0,0,39.35,38.44,8,8,0,0,1,8.73,8.73,36,36,0,0,0,38.47,39.34,80.81,80.81,0,0,0,15-16C223.42,107.73,215.42,57.74,212.42,43.57Z"/></svg></svg>

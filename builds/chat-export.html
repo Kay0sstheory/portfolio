@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Chat Export · Venkat Kartik Nukala</title>
-<meta name="description" content="Every AI chat I&#x27;ve had, saved as tidy folders">
+<meta name="description" content="Keeps ChatGPT, Claude in the browser and Claude Code in sync, so Claude Code knows every project and conversation I&#x27;ve had anywhere.">
 <meta name="theme-color" content="#060912">
 <link rel="canonical" href="https://kay0sstheory.github.io/portfolio/builds/chat-export.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Venkat Kartik Nukala">
 <meta property="og:title" content="Chat Export · Venkat Kartik Nukala">
-<meta property="og:description" content="Every AI chat I&#x27;ve had, saved as tidy folders">
+<meta property="og:description" content="Keeps ChatGPT, Claude in the browser and Claude Code in sync, so Claude Code knows every project and conversation I&#x27;ve had anywhere.">
 <meta property="og:url" content="https://kay0sstheory.github.io/portfolio/builds/chat-export.html">
 <meta property="og:image" content="https://kay0sstheory.github.io/portfolio/assets/share.jpg">
 <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../assets/site.css?v=f57922e1">
+<link rel="stylesheet" href="../assets/site.css?v=2e12c210">
 <script data-goatcounter="https://venkatknukala.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -33,22 +33,26 @@
     <ul><li><a href="../about.html">About</a></li><li><a href="../builds.html" aria-current="page">Builds</a></li><li><a href="../resume.html">Resume</a></li><li><a href="../photography.html">Photography</a></li><li><a href="../contact.html">Contact</a></li></ul>
   </nav>
 <main id="main">
-  <header class="build-head" style="--accent: #5AD1E8">
-    <img src="../assets/logos/chat-export.svg" alt="Chat Export logo" width="112" height="112">
-    <div><h1><span class="page-title" id="page-title">Chat Export</span></h1><p class="tagline">Every AI chat I&#x27;ve had, saved as tidy folders</p></div>
-    <div class="actions"><span class="status-pill" style="--accent: #5AD1E8">Private</span></div>
+  <header class="project-hero" style="--accent: #5AD1E8">
+    <div class="project-intro">
+      <div class="project-title"><img src="../assets/logos/chat-export.svg" alt="Chat Export symbol" width="64" height="64"><h1><span class="page-title" id="page-title">Chat Export</span></h1><span class="status-pill" style="--accent: #5AD1E8">Private</span></div>
+      <p class="tagline">Keeps ChatGPT, Claude in the browser and Claude Code in sync, so Claude Code knows every project and conversation I&#x27;ve had anywhere.</p>
+      <ul class="tags"><li>Python</li><li>JavaScript</li><li>Node.js</li></ul>
+      
+    </div>
+    <div class="project-media"><img src="../assets/thumbs/chat-export.jpg" alt="Chat Export"></div>
   </header>
 
-  <dl class="story glass"><div><dt>Problem</dt><dd>Years of useful conversations were locked inside Claude and ChatGPT, with no good way to keep or search them.</dd></div><div><dt>Built</dt><dd>A two-step tool that pulls every chat out of both sites, with every attachment and picture, into one folder per project and conversation.</dd></div><div><dt>Result</dt><dd>2,132 chats from five accounts saved on my own drive, with no failures on the latest pull.</dd></div></dl>
+  <section class="stats"><div class="stat glass"><b>5</b><span>accounts kept in sync: 1 Claude and 4 ChatGPT</span></div><div class="stat glass"><b>4</b><span>ways to choose what to pull: account, project list, project or chat</span></div><div class="stat glass"><b>0</b><span>passwords or keys ever copied to a file</span></div></section>
+
+  <section class="stack">
+    <h2 class="section-title">What it does</h2>
+    <div class="feature-groups"><div class="feature-group glass"><h3>Pulling every chat</h3><ul><li>Collects every Claude and ChatGPT conversation from a signed-in browser.</li><li>Pull a whole account, one project or a single chat.</li><li>Later runs fetch only new or changed chats.</li><li>Saves pictures and attachments from each chat too.</li></ul></div><div class="feature-group glass"><h3>Tidy, readable folders</h3><ul><li>One folder per project and per conversation, each easy to read.</li><li>Each project keeps its instructions, memory and knowledge files.</li><li>An index links every chat, so nothing is hard to find.</li><li>Each run swaps in a complete fresh copy, never a half-written one.</li></ul></div><div class="feature-group glass"><h3>One memory across tools</h3><ul><li>Claude Code can find and discuss any past chat from either website.</li><li>Chats link into my notes vault after every run, with no AI needed.</li><li>Chat folders are matched to the project pages they belong to.</li></ul></div><div class="feature-group glass"><h3>Safe by design</h3><ul><li>My login never leaves the browser.</li><li>Optional scrubbing of serial numbers, addresses and key-like text before sharing.</li><li>Names any missing file plainly instead of skipping it silently.</li></ul></div></div>
+  </section>
 
   <section class="stack" style="--accent: #5AD1E8">
     <h2 class="section-title">How it works</h2>
     <ol class="steps"><li class="glass">Run a small script in the browser while signed in</li><li class="glass">It collects every chat, file and picture</li><li class="glass">A second step sorts them into a folder per project and conversation</li><li class="glass">An index lists every chat so any of them can be found</li></ol>
-  </section>
-
-  <section class="stack">
-    <h2 class="section-title">Screenshots</h2>
-    <div class="empty-shots glass"><p>Screenshots are on the way.</p><p class="muted">This app holds real personal data, so I'm filling a copy with made-up data to show it safely.</p></div>
   </section>
 
   <section class="next-up glass" style="--accent: #5AD1E8">
@@ -57,13 +61,13 @@
   </section>
 
   <nav class="build-pager" aria-label="Other builds">
-    <a href="garage.html"><span>Previous</span><b>Garage</b></a>
-    <a href="litmus-stack.html"><span>Next</span><b>Litmus Stack</b></a>
+    <a href="geetha.html"><span>Previous</span><b>Geetha</b></a>
+    <a href="garage.html"><span>Next</span><b>Garage</b></a>
   </nav>
 </main>
   <footer><span>Venkat Kartik Nukala</span><span>Built by <a href="https://github.com/Kay0ssTheory" target="_blank" rel="noopener">Kay0sstheory</a> - Powered by curiosity</span></footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="../assets/site.js?v=f3e88fe9"></script>
+<script src="../assets/site.js?v=0f44a01d"></script>
 </body>
 </html>

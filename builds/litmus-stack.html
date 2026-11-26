@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Litmus Stack · Venkat Kartik Nukala</title>
-<meta name="description" content="A background check for open-source projects and AI add-ons">
+<meta name="description" content="Know what you&#x27;re installing: a plain-English check of any GitHub project for hidden attacks, known holes and neglect, with proof for every warning.">
 <meta name="theme-color" content="#060912">
 <link rel="canonical" href="https://kay0sstheory.github.io/portfolio/builds/litmus-stack.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Venkat Kartik Nukala">
 <meta property="og:title" content="Litmus Stack · Venkat Kartik Nukala">
-<meta property="og:description" content="A background check for open-source projects and AI add-ons">
+<meta property="og:description" content="Know what you&#x27;re installing: a plain-English check of any GitHub project for hidden attacks, known holes and neglect, with proof for every warning.">
 <meta property="og:url" content="https://kay0sstheory.github.io/portfolio/builds/litmus-stack.html">
 <meta property="og:image" content="https://kay0sstheory.github.io/portfolio/assets/share.jpg">
 <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../assets/site.css?v=f57922e1">
+<link rel="stylesheet" href="../assets/site.css?v=2e12c210">
 <script data-goatcounter="https://venkatknukala.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -33,22 +33,31 @@
     <ul><li><a href="../about.html">About</a></li><li><a href="../builds.html" aria-current="page">Builds</a></li><li><a href="../resume.html">Resume</a></li><li><a href="../photography.html">Photography</a></li><li><a href="../contact.html">Contact</a></li></ul>
   </nav>
 <main id="main">
-  <header class="build-head" style="--accent: #5B9BFF">
-    <img src="../assets/logos/litmus-stack.svg" alt="Litmus Stack logo" width="112" height="112">
-    <div><h1><span class="page-title" id="page-title">Litmus Stack</span></h1><p class="tagline">A background check for open-source projects and AI add-ons</p></div>
-    <div class="actions"><a class="button live" href="https://litmusstack.com/" target="_blank" rel="noopener">Visit the site</a></div>
+  <header class="project-hero" style="--accent: #5B9BFF">
+    <div class="project-intro">
+      <div class="project-title"><img src="../assets/logos/litmus-stack.svg" alt="Litmus Stack symbol" width="64" height="64"><h1><span class="page-title" id="page-title">Litmus Stack</span></h1><span class="status-pill is-live" style="--accent: #5B9BFF">Opening soon</span></div>
+      <p class="tagline">Know what you&#x27;re installing: a plain-English check of any GitHub project for hidden attacks, known holes and neglect, with proof for every warning.</p>
+      <ul class="tags"><li>Next.js</li><li>React</li><li>TypeScript</li><li>SQLite</li><li>Claude</li><li>Cloudflare Workers</li></ul>
+      <div class="tile-links"><a class="button" href="https://litmusstack.com" target="_blank" rel="noopener">Visit litmusstack.com</a></div>
+    </div>
+    <div class="project-media"><video src="../assets/thumbs/litmus-stack-hover.mp4" poster="../assets/thumbs/litmus-stack.jpg" autoplay muted loop playsinline aria-hidden="true"></video></div>
   </header>
 
-  <dl class="story glass"><div><dt>Problem</dt><dd>Installing an open-source project or AI add-on means trusting code you&#x27;ve never read.</dd></div><div><dt>Built</dt><dd>Paste a GitHub link and it reads every file, then reports on upkeep, licence, outside packages and risky code, in plain English.</dd></div><div><dt>Result</dt><dd>The first page is live at litmusstack.com, and the checker is in testing before it opens.</dd></div></dl>
+  <section class="stats"><div class="stat glass"><b>654 of 657</b><span>planted attacks caught</span></div><div class="stat glass"><b>83%</b><span>caught in a sealed test set never seen while writing rules</span></div><div class="stat glass"><b>0</b><span>false alarms across 91 clean projects</span></div><div class="stat glass"><b>8</b><span>package ecosystems checked for known holes</span></div></section>
 
-  <section class="stack" style="--accent: #5B9BFF">
-    <h2 class="section-title">How it works</h2>
-    <ol class="steps"><li class="glass">You paste a GitHub link</li><li class="glass">It reads every file, not a sample</li><li class="glass">It checks upkeep, the licence, outside packages and risky code</li><li class="glass">You get a plain-English report with the evidence behind every finding</li></ol>
+  <section class="stack">
+    <h2 class="section-title">What it does</h2>
+    <div class="feature-groups"><div class="feature-group glass"><h3>One clear report</h3><ul><li>Paste a GitHub link and get a full report in plain English.</li><li>A health score out of 100 across seven areas, from activity to documentation.</li><li>Explains the licence and what it allows, without legal jargon.</li><li>A two-page summary for non-experts: answer first, then each warning with proof.</li></ul></div><div class="feature-group glass"><h3>Finding hidden attacks</h3><ul><li>Reads every file, even ones hidden inside archives.</li><li>Spots download-and-run code, key theft, keystroke recording and fake installers.</li><li>Catches instructions planted to trick AI coding assistants.</li><li>Warns when a project uses parts under active attack right now.</li><li>Checks whether a leaked key in the code still works.</li></ul></div><div class="feature-group glass"><h3>Proof for every warning</h3><ul><li>Shows the exact file and line, with the suspicious text safely quoted.</li><li>Links to that line at the exact version checked.</li><li>Says plainly what was not checked, and never calls anything &quot;safe&quot;.</li></ul></div><div class="feature-group glass"><h3>Measured, not claimed</h3><ul><li>A scoreboard of planted attacks and known-clean projects tracks catch and false-alarm rates.</li><li>A sealed test set is kept unseen while rules are written.</li><li>Malware samples run only in a walled-off lab, never on my own Mac.</li></ul></div></div>
   </section>
 
   <section class="stack">
     <h2 class="section-title">Screenshots</h2>
-    <div class="shots"><figure><img src="../assets/shots/litmus-stack-home.jpg" alt="The opening soon page at litmusstack.com" loading="lazy"><figcaption>The opening soon page at litmusstack.com</figcaption></figure></div>
+    <div class="shots shot-grid"><figure><img src="../assets/shots/litmus-stack-home.jpg" alt="The opening soon page at litmusstack.com" loading="lazy"><figcaption>The opening soon page at litmusstack.com</figcaption></figure></div>
+  </section>
+
+  <section class="stack" style="--accent: #5B9BFF">
+    <h2 class="section-title">How it works</h2>
+    <ol class="steps"><li class="glass">You paste a GitHub link</li><li class="glass">It reads every file, not a sample</li><li class="glass">It checks upkeep, the licence, outside packages and risky code</li><li class="glass">You get a plain-English report with the evidence behind every finding</li></ol>
   </section>
 
   <section class="next-up glass" style="--accent: #5B9BFF">
@@ -57,13 +66,13 @@
   </section>
 
   <nav class="build-pager" aria-label="Other builds">
-    <a href="chat-export.html"><span>Previous</span><b>Chat Export</b></a>
-    <a href="currensor.html"><span>Next</span><b>Currensor</b></a>
+    <a href="emerald.html"><span>Previous</span><b>Emerald</b></a>
+    <a href="geetha.html"><span>Next</span><b>Geetha</b></a>
   </nav>
 </main>
   <footer><span>Venkat Kartik Nukala</span><span>Built by <a href="https://github.com/Kay0ssTheory" target="_blank" rel="noopener">Kay0sstheory</a> - Powered by curiosity</span></footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="../assets/site.js?v=f3e88fe9"></script>
+<script src="../assets/site.js?v=0f44a01d"></script>
 </body>
 </html>

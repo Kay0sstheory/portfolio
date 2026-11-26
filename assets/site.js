@@ -189,7 +189,8 @@ function dockIntoBar(flying, slot, revealedWhenDocked) {
   const viewerCount = document.getElementById("viewer-count");
   const photoGap = 14;
   const requestedGallery = galleries.find(gallery => "#" + gallery.id === window.location.hash);
-  let currentGallery = requestedGallery || galleries[0];
+  let currentGallery = null;
+  let viewerGallery = galleries[0];
   let viewerIndex = 0;
   let lastFocused = null;
 
@@ -224,6 +225,9 @@ function dockIntoBar(flying, slot, revealedWhenDocked) {
   }
   galleries.forEach(gallery => { gallery.photos = mixShapes(gallery.photos); });
 
+  // One continuous page (2026-11-26): every gallery follows the last, Nature first; the tab bar stays pinned under the
+  // top bar, marks the gallery on screen, and a tab glides the page to its gallery.
+  const tabButtons = new Map();
   function renderTabs() {
     tabsElement.innerHTML = "";
     galleries.forEach(gallery => {
@@ -232,10 +236,42 @@ function dockIntoBar(flying, slot, revealedWhenDocked) {
       tab.setAttribute("role", "tab");
       tab.setAttribute("aria-selected", String(gallery === currentGallery));
       tab.innerHTML = `${gallery.name}<span>${gallery.photos.length}</span>`;
-      tab.addEventListener("click", () => { currentGallery = gallery; renderTabs(); renderGrid(); });
+      tab.addEventListener("click", () => scrollToGallery(gallery));
       tabsElement.appendChild(tab);
+      tabButtons.set(gallery, tab);
     });
   }
+  function markCurrent(gallery) {
+    if (gallery === currentGallery) return;
+    currentGallery = gallery;
+    tabButtons.forEach((tab, tabGallery) => tab.setAttribute("aria-selected", String(tabGallery === gallery)));
+    tabButtons.get(gallery)?.scrollIntoView({ block: "nearest", inline: "nearest" });
+    history.replaceState(null, "", "#" + gallery.id);
+  }
+  function pinnedHeight() { return tabsElement.getBoundingClientRect().bottom + 12; }
+  function scrollToGallery(gallery, instant = false) {
+    const section = document.getElementById("gallery-" + gallery.id);
+    if (!section) return;
+    const top = section.getBoundingClientRect().top + window.scrollY - pinnedHeight() + 2;
+    if (window.siteLenis && !instant) window.siteLenis.scrollTo(top);
+    else window.scrollTo({ top, behavior: instant ? "auto" : "smooth" });
+    markCurrent(gallery);
+  }
+  function followScroll() {
+    const line = pinnedHeight() + 40;
+    let onScreen = galleries[0];
+    galleries.forEach(gallery => {
+      const section = document.getElementById("gallery-" + gallery.id);
+      if (section && section.getBoundingClientRect().top <= line) onScreen = gallery;
+    });
+    markCurrent(onScreen);
+  }
+  let scrollQueued = false;
+  window.addEventListener("scroll", () => {
+    if (scrollQueued) return;
+    scrollQueued = true;
+    requestAnimationFrame(() => { scrollQueued = false; followScroll(); });
+  }, { passive: true });
 
   // Fills each row edge to edge: photos are added at a target height until the row is too wide,
   // then the whole row is scaled down to fit exactly.
@@ -261,11 +297,12 @@ function dockIntoBar(flying, slot, revealedWhenDocked) {
     return rows;
   }
 
-  function renderGrid() {
-    const photos = currentGallery.photos;
-    const rowWidth = gridElement.clientWidth;
-    const targetHeight = rowWidth < 600 ? 300 : 520;
-    gridElement.innerHTML = "";
+  function renderGallery(gallery, rowWidth, targetHeight) {
+    const section = document.createElement("section");
+    section.className = "gallery-section";
+    section.id = "gallery-" + gallery.id;
+    section.innerHTML = `<h2 class="section-title">${gallery.name}</h2>`;
+    const photos = gallery.photos;
     splitIntoRows(photos, rowWidth, targetHeight).forEach(row => {
       const rowElement = document.createElement("div");
       rowElement.className = "photo-row";
@@ -275,28 +312,35 @@ function dockIntoBar(flying, slot, revealedWhenDocked) {
         button.type = "button";
         button.style.width = `${row.height * photo.width / photo.height}px`;
         button.style.height = `${row.height}px`;
-        button.setAttribute("aria-label", `Open ${currentGallery.name} photo ${index + 1}`);
-        button.innerHTML = `<img src="${photo.thumb}" loading="lazy" decoding="async" alt="${currentGallery.name} photo ${index + 1}">`;
-        button.addEventListener("click", () => openViewer(index));
+        button.setAttribute("aria-label", `Open ${gallery.name} photo ${index + 1}`);
+        button.innerHTML = `<img src="${photo.thumb}" loading="lazy" decoding="async" alt="${gallery.name} photo ${index + 1}">`;
+        button.addEventListener("click", () => { viewerGallery = gallery; openViewer(index); });
         rowElement.appendChild(button);
       });
-      gridElement.appendChild(rowElement);
+      section.appendChild(rowElement);
     });
+    return section;
+  }
+  function renderGrid() {
+    const rowWidth = gridElement.clientWidth;
+    const targetHeight = rowWidth < 600 ? 300 : 520;
+    gridElement.innerHTML = "";
+    galleries.forEach(gallery => gridElement.appendChild(renderGallery(gallery, rowWidth, targetHeight)));
   }
   let resizeTimer = null;
   window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(renderGrid, 150); });
 
   function showViewerPhoto() {
-    const photos = currentGallery.photos;
+    const photos = viewerGallery.photos;
     const photo = photos[viewerIndex];
     viewerImage.src = photo.full;
-    viewerImage.alt = `${currentGallery.name} photo ${viewerIndex + 1}`;
-    viewerCount.textContent = `${currentGallery.name}  ${viewerIndex + 1} / ${photos.length}`;
+    viewerImage.alt = `${viewerGallery.name} photo ${viewerIndex + 1}`;
+    viewerCount.textContent = `${viewerGallery.name}  ${viewerIndex + 1} / ${photos.length}`;
     // Load the neighbours now so stepping left or right is instant.
     [1, -1].forEach(offset => { new Image().src = photos[(viewerIndex + offset + photos.length) % photos.length].full; });
   }
   function step(direction) {
-    const total = currentGallery.photos.length;
+    const total = viewerGallery.photos.length;
     viewerIndex = (viewerIndex + direction + total) % total;
     showViewerPhoto();
   }
@@ -334,6 +378,8 @@ function dockIntoBar(flying, slot, revealedWhenDocked) {
 
   renderTabs();
   renderGrid();
+  if (requestedGallery) requestAnimationFrame(() => scrollToGallery(requestedGallery, true));
+  else markCurrent(galleries[0]);
 })();
 
 // Edit mode was retired; browsers that once switched it on still hold its notes, so clear them.
@@ -473,6 +519,7 @@ document.querySelectorAll('.tile').forEach(tile => {
   if (!window.Lenis || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   // Lenis 1.1 has no self-start option, so this loop drives it every frame; without it the wheel does nothing.
   const lenis = new Lenis({ lerp: 0.1 });
+  window.siteLenis = lenis;  // the photo page's tabs glide with it
   function frame(time) { lenis.raf(time); requestAnimationFrame(frame); }
   requestAnimationFrame(frame);
 })();

@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NavaSiri · Venkat Kartik Nukala</title>
-<meta name="description" content="A personal finance tracker">
+<meta name="description" content="Household money, fully private: rule-based sorting of every transaction across 25 accounts, plus trip costs and what-if scenario planning.">
 <meta name="theme-color" content="#060912">
 <link rel="canonical" href="https://kay0sstheory.github.io/portfolio/builds/navasiri.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Venkat Kartik Nukala">
 <meta property="og:title" content="NavaSiri · Venkat Kartik Nukala">
-<meta property="og:description" content="A personal finance tracker">
+<meta property="og:description" content="Household money, fully private: rule-based sorting of every transaction across 25 accounts, plus trip costs and what-if scenario planning.">
 <meta property="og:url" content="https://kay0sstheory.github.io/portfolio/builds/navasiri.html">
 <meta property="og:image" content="https://kay0sstheory.github.io/portfolio/assets/share.jpg">
 <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../assets/site.css?v=f57922e1">
+<link rel="stylesheet" href="../assets/site.css?v=2e12c210">
 <script data-goatcounter="https://venkatknukala.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -33,22 +33,26 @@
     <ul><li><a href="../about.html">About</a></li><li><a href="../builds.html" aria-current="page">Builds</a></li><li><a href="../resume.html">Resume</a></li><li><a href="../photography.html">Photography</a></li><li><a href="../contact.html">Contact</a></li></ul>
   </nav>
 <main id="main">
-  <header class="build-head" style="--accent: #F5C451">
-    <img src="../assets/logos/navasiri.svg" alt="NavaSiri logo" width="112" height="112">
-    <div><h1><span class="page-title" id="page-title">NavaSiri</span></h1><p class="tagline">A personal finance tracker</p></div>
-    <div class="actions"><span class="status-pill" style="--accent: #F5C451">Private</span></div>
+  <header class="project-hero" style="--accent: #F5C451">
+    <div class="project-intro">
+      <div class="project-title"><img src="../assets/logos/navasiri.svg" alt="NavaSiri symbol" width="64" height="64"><h1><span class="page-title" id="page-title">NavaSiri</span></h1><span class="status-pill" style="--accent: #F5C451">Private</span></div>
+      <p class="tagline">Household money, fully private: rule-based sorting of every transaction across 25 accounts, plus trip costs and what-if scenario planning.</p>
+      <ul class="tags"><li>Python</li><li>Streamlit</li><li>SQLite</li><li>Pandas</li><li>Plotly</li><li>Apple Vision</li></ul>
+      
+    </div>
+    <div class="project-media"><video src="../assets/thumbs/navasiri-hover.mp4" poster="../assets/thumbs/navasiri.jpg" autoplay muted loop playsinline aria-hidden="true"></video></div>
   </header>
 
-  <dl class="story glass"><div><dt>Problem</dt><dd>My bank statements showed where money went but never why.</dd></div><div><dt>Built</dt><dd>It reads statements from every account, sorts each spend into a category and learns from my corrections.</dd></div><div><dt>Result</dt><dd>One clear picture of our household spending, kept fully private.</dd></div></dl>
+  <section class="stats"><div class="stat glass"><b>10,794</b><span>transactions sorted by rules</span></div><div class="stat glass"><b>25</b><span>bank, card, loan and investment accounts</span></div><div class="stat glass"><b>58</b><span>spending categories</span></div><div class="stat glass"><b>50</b><span>trips costed end to end</span></div></section>
+
+  <section class="stack">
+    <h2 class="section-title">What it does</h2>
+    <div class="feature-groups"><div class="feature-group glass"><h3>Every account in one place</h3><ul><li>Reads statements from many Canadian and US banks, cards and brokers.</li><li>Re-importing a statement never double-counts a single row.</li><li>Checks each statement against the totals it prints for itself.</li><li>A coverage grid shows any missing month and why it is missing.</li></ul></div><div class="feature-group glass"><h3>Sorting without guessing</h3><ul><li>Rules sort every transaction and learn from each correction I make.</li><li>Money moving between my own accounts is never counted as spending.</li><li>Refunds link back to the charge they reversed.</li><li>Bank alerts and receipts from email confirm who a payment really went to.</li></ul></div><div class="feature-group glass"><h3>Seeing the whole picture</h3><ul><li>Spending this month against the three-month average, with clickable drill-downs.</li><li>Net worth, debts and investments, including gains and dividends.</li><li>Trips: booking emails prove a trip, then its spending is gathered automatically.</li></ul></div><div class="feature-group glass"><h3>Planning ahead</h3><ul><li>Combine what-ifs like a pay change or a new loan in one run.</li><li>See the month a savings or debt goal will be reached.</li><li>Track an outside investment, like a property, with money in, out and net return.</li></ul></div><div class="feature-group glass"><h3>Trust and safety</h3><ul><li>Health checks and a full audit trail of every import and change.</li><li>Automatic backup before every import, with one-click restore.</li><li>All data stays on my own computer, behind a password.</li></ul></div></div>
+  </section>
 
   <section class="stack" style="--accent: #F5C451">
     <h2 class="section-title">How it works</h2>
     <ol class="steps"><li class="glass">Drop in statements from every bank and card</li><li class="glass">It reads every transaction and removes duplicates</li><li class="glass">Each spend is sorted into a category</li><li class="glass">My corrections teach it for next time</li><li class="glass">One dashboard shows the whole household</li></ol>
-  </section>
-
-  <section class="stack">
-    <h2 class="section-title">Screenshots</h2>
-    <div class="empty-shots glass"><p>Screenshots are on the way.</p><p class="muted">This app holds real personal data, so I'm filling a copy with made-up data to show it safely.</p></div>
   </section>
 
   <section class="next-up glass" style="--accent: #F5C451">
@@ -57,13 +61,13 @@
   </section>
 
   <nav class="build-pager" aria-label="Other builds">
-    <a href="rezza.html"><span>Previous</span><b>Rezza</b></a>
+    <a href="currensor.html"><span>Previous</span><b>Currensor</b></a>
     <a href="wells-kargo.html"><span>Next</span><b>Wells Kargo</b></a>
   </nav>
 </main>
   <footer><span>Venkat Kartik Nukala</span><span>Built by <a href="https://github.com/Kay0ssTheory" target="_blank" rel="noopener">Kay0sstheory</a> - Powered by curiosity</span></footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="../assets/site.js?v=f3e88fe9"></script>
+<script src="../assets/site.js?v=0f44a01d"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#0D0D0F"/><rect x="10" y="10" width="492" height="492" rx="104" fill="none" stroke="#2A2A30" stroke-width="4"/>
-<path d="M100 300 L136 236 Q150 212 178 210 L300 206 Q330 206 352 226 L388 258 Q420 264 424 292 L424 316 H100 Z" fill="none" stroke="#FF5A5F" stroke-width="26" stroke-linejoin="round"/>
-<circle cx="176" cy="326" r="34" fill="#0D0D0F" stroke="#FF5A5F" stroke-width="22"/><circle cx="352" cy="326" r="34" fill="#0D0D0F" stroke="#FF5A5F" stroke-width="22"/>
-<path d="M120 392 H392" stroke="#FF5A5F" stroke-width="14" stroke-linecap="round" opacity="0.5"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<defs><linearGradient id="c-garage-steering-wheel" x1="0" y1="0" x2="0.3" y2="1">
+<stop offset="0" stop-color="#FF7B7F"/><stop offset="1" stop-color="#FF5A5F"/></linearGradient></defs>
+<rect width="512" height="512" rx="116" fill="url(#c-garage-steering-wheel)"/>
+<svg x="126" y="126" width="260" height="260" viewBox="0 0 256 256" fill="#381415"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM49.63,168H90.45l17,45.58A88.35,88.35,0,0,1,49.63,168ZM128,156a16,16,0,1,1,16-16A16,16,0,0,1,128,156Zm20.46,57.59L165.55,168h40.82A88.34,88.34,0,0,1,148.46,213.59ZM128,96a136.38,136.38,0,0,0-88,32.33V128a88,88,0,0,1,176,0v.33A136.38,136.38,0,0,0,128,96Z"/></svg></svg>

@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=f57922e1">
+<link rel="stylesheet" href="assets/site.css?v=2e12c210">
 <script data-goatcounter="https://venkatknukala.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -38,42 +38,123 @@
     <p class="lead">Every one of these began as a real problem in my own life or work. I design them as a product owner and build them with AI.</p>
   </header>
     <div class="tiles">
-      <a class="tile" href="builds/currensor.html" style="--accent: #E8FF59">
-        <div class="tile-thumb"><img src="assets/thumbs/currensor.jpg" alt="" loading="lazy" decoding="async"><video src="assets/thumbs/currensor-hover.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
-        <div class="tile-body"><img class="tile-icon" src="assets/logos/currensor.svg" alt="" width="28" height="28"><div class="tile-text"><div class="tile-row"><h3>Currensor</h3><span class="status-pill is-live" style="--accent: #E8FF59">Live</span></div><p>A currency converter that also works inside Claude and ChatGPT</p></div></div>
-      </a>
-      <a class="tile" href="builds/rezza.html" style="--accent: #8AB4FF">
+      <article class="tile" style="--accent: #8AB4FF">
         <div class="tile-thumb"><img src="assets/thumbs/rezza.jpg" alt="" loading="lazy" decoding="async"><video src="assets/thumbs/rezza-hover.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
-        <div class="tile-body"><img class="tile-icon" src="assets/logos/rezza.svg" alt="" width="28" height="28"><div class="tile-text"><div class="tile-row"><h3>Rezza</h3><span class="status-pill" style="--accent: #8AB4FF">Private</span></div><p>An AI job-application assistant</p></div></div>
-      </a>
-      <a class="tile" href="builds/navasiri.html" style="--accent: #F5C451">
+        <div class="tile-body">
+          <div class="tile-row"><img class="tile-icon" src="assets/logos/rezza.svg" alt="" width="28" height="28"><h3><a class="tile-link" href="builds/rezza.html">Rezza</a></h3><span class="status-pill" style="--accent: #8AB4FF">Private</span></div>
+          <p>My AI job-hunt partner: it finds and scores roles, tracks every application and contact, and tailors each resume with a human in the loop, keeping only claims backed by proof.</p>
+          <ul class="tags"><li>Python</li><li>Flask</li><li>Claude</li><li>ReportLab</li><li>Gmail API</li><li>Playwright</li></ul>
+          
+        </div>
+      </article>
+      <article class="tile" style="--accent: #E8FF59">
+        <div class="tile-thumb"><img src="assets/thumbs/currensor.jpg" alt="" loading="lazy" decoding="async"><video src="assets/thumbs/currensor-hover.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+        <div class="tile-body">
+          <div class="tile-row"><img class="tile-icon" src="assets/logos/currensor.svg" alt="" width="28" height="28"><h3><a class="tile-link" href="builds/currensor.html">Currensor</a></h3><span class="status-pill is-live" style="--accent: #E8FF59">Live</span></div>
+          <p>Get live exchange rates for 166 currencies, on the web or right inside a Claude or ChatGPT chat. Free, no sign-in.</p>
+          <ul class="tags"><li>JavaScript</li><li>Cloudflare Workers</li><li>Cloudflare D1</li><li>Canvas</li></ul>
+          <div class="tile-links"><a class="chip-button" href="https://kay0sstheory.github.io/Currensor/" target="_blank" rel="noopener">Open the web app</a><a class="chip-button" href="https://chatgpt.com/plugins/plugin_asdk_app_6ac137cf0fc081918bcde5f77497877c" target="_blank" rel="noopener">Get it in the ChatGPT store</a></div>
+        </div>
+      </article>
+      <article class="tile" style="--accent: #F5C451">
         <div class="tile-thumb"><img src="assets/thumbs/navasiri.jpg" alt="" loading="lazy" decoding="async"><video src="assets/thumbs/navasiri-hover.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
-        <div class="tile-body"><img class="tile-icon" src="assets/logos/navasiri.svg" alt="" width="28" height="28"><div class="tile-text"><div class="tile-row"><h3>NavaSiri</h3><span class="status-pill" style="--accent: #F5C451">Private</span></div><p>A personal finance tracker</p></div></div>
-      </a>
-      <a class="tile" href="builds/wells-kargo.html" style="--accent: #FF9F6E">
+        <div class="tile-body">
+          <div class="tile-row"><img class="tile-icon" src="assets/logos/navasiri.svg" alt="" width="28" height="28"><h3><a class="tile-link" href="builds/navasiri.html">NavaSiri</a></h3><span class="status-pill" style="--accent: #F5C451">Private</span></div>
+          <p>Household money, fully private: rule-based sorting of every transaction across 25 accounts, plus trip costs and what-if scenario planning.</p>
+          <ul class="tags"><li>Python</li><li>Streamlit</li><li>SQLite</li><li>Pandas</li><li>Plotly</li><li>Apple Vision</li></ul>
+          
+        </div>
+      </article>
+      <article class="tile" style="--accent: #FF9F6E">
         <div class="tile-thumb"><img src="assets/thumbs/wells-kargo.jpg" alt="" loading="lazy" decoding="async"><video src="assets/thumbs/wells-kargo-hover.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
-        <div class="tile-body"><img class="tile-icon" src="assets/logos/wells-kargo.svg" alt="" width="28" height="28"><div class="tile-text"><div class="tile-row"><h3>Wells Kargo</h3><span class="status-pill" style="--accent: #FF9F6E">Private</span></div><p>A searchable library of everything I&#x27;ve saved on Instagram</p></div></div>
-      </a>
-      <a class="tile" href="builds/emerald.html" style="--accent: #34D399">
+        <div class="tile-body">
+          <div class="tile-row"><img class="tile-icon" src="assets/logos/wells-kargo.svg" alt="" width="28" height="28"><h3><a class="tile-link" href="builds/wells-kargo.html">Wells Kargo</a></h3><span class="status-pill" style="--accent: #FF9F6E">Private</span></div>
+          <p>Nearly 6,800 saved Instagram posts turned into a library I can browse, talk to and research from while I build.</p>
+          <ul class="tags"><li>Python</li><li>SQLite</li><li>Claude</li><li>Whisper</li><li>Apple Vision</li><li>yt-dlp</li></ul>
+          
+        </div>
+      </article>
+      <article class="tile" style="--accent: #34D399">
         <div class="tile-thumb"><img src="assets/thumbs/emerald.jpg" alt="" loading="lazy" decoding="async"><video src="assets/thumbs/emerald-hover.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
-        <div class="tile-body"><img class="tile-icon" src="assets/logos/emerald.svg" alt="" width="28" height="28"><div class="tile-text"><div class="tile-row"><h3>Emerald</h3><span class="status-pill" style="--accent: #34D399">Private</span></div><p>A command center for all my projects</p></div></div>
-      </a>
-      <a class="tile" href="builds/scribe.html" style="--accent: #C4A1FF">
-        <div class="tile-thumb"><img src="assets/thumbs/scribe.jpg" alt="" loading="lazy" decoding="async"></div>
-        <div class="tile-body"><img class="tile-icon" src="assets/logos/scribe.svg" alt="" width="28" height="28"><div class="tile-text"><div class="tile-row"><h3>Scribe</h3><span class="status-pill" style="--accent: #C4A1FF">Private</span></div><p>Private transcription that runs on my own Mac</p></div></div>
-      </a>
-      <a class="tile" href="builds/garage.html" style="--accent: #FF5A5F">
-        <div class="tile-thumb"><img src="assets/thumbs/garage.jpg" alt="" loading="lazy" decoding="async"><video src="assets/thumbs/garage-hover.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
-        <div class="tile-body"><img class="tile-icon" src="assets/logos/garage.svg" alt="" width="28" height="28"><div class="tile-text"><div class="tile-row"><h3>Garage</h3><span class="status-pill" style="--accent: #FF5A5F">Private</span></div><p>A virtual showroom of my favourite cars</p></div></div>
-      </a>
-      <a class="tile" href="builds/chat-export.html" style="--accent: #5AD1E8">
-        <div class="tile-thumb"><img src="assets/thumbs/chat-export.jpg" alt="" loading="lazy" decoding="async"></div>
-        <div class="tile-body"><img class="tile-icon" src="assets/logos/chat-export.svg" alt="" width="28" height="28"><div class="tile-text"><div class="tile-row"><h3>Chat Export</h3><span class="status-pill" style="--accent: #5AD1E8">Private</span></div><p>Every AI chat I&#x27;ve had, saved as tidy folders</p></div></div>
-      </a>
-      <a class="tile" href="builds/litmus-stack.html" style="--accent: #5B9BFF">
+        <div class="tile-body">
+          <div class="tile-row"><img class="tile-icon" src="assets/logos/emerald.svg" alt="" width="28" height="28"><h3><a class="tile-link" href="builds/emerald.html">Emerald</a></h3><span class="status-pill" style="--accent: #34D399">Private</span></div>
+          <p>Mission control for all my projects: live status, a goal map, my task board and a nightly briefing in one place.</p>
+          <ul class="tags"><li>Node.js</li><li>Express</li><li>React</li><li>SQLite</li><li>Socket.IO</li><li>Tailwind CSS</li></ul>
+          
+        </div>
+      </article>
+      <article class="tile" style="--accent: #5B9BFF">
         <div class="tile-thumb"><img src="assets/thumbs/litmus-stack.jpg" alt="" loading="lazy" decoding="async"><video src="assets/thumbs/litmus-stack-hover.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
-        <div class="tile-body"><img class="tile-icon" src="assets/logos/litmus-stack.svg" alt="" width="28" height="28"><div class="tile-text"><div class="tile-row"><h3>Litmus Stack</h3><span class="status-pill is-live" style="--accent: #5B9BFF">Opening soon</span></div><p>A background check for open-source projects and AI add-ons</p></div></div>
-      </a>
+        <div class="tile-body">
+          <div class="tile-row"><img class="tile-icon" src="assets/logos/litmus-stack.svg" alt="" width="28" height="28"><h3><a class="tile-link" href="builds/litmus-stack.html">Litmus Stack</a></h3><span class="status-pill is-live" style="--accent: #5B9BFF">Opening soon</span></div>
+          <p>Know what you&#x27;re installing: a plain-English check of any GitHub project for hidden attacks, known holes and neglect, with proof for every warning.</p>
+          <ul class="tags"><li>Next.js</li><li>React</li><li>TypeScript</li><li>SQLite</li><li>Claude</li><li>Cloudflare Workers</li></ul>
+          <div class="tile-links"><a class="chip-button" href="https://litmusstack.com" target="_blank" rel="noopener">Visit litmusstack.com</a></div>
+        </div>
+      </article>
+      <article class="tile" style="--accent: #FF7AB6">
+        <div class="tile-thumb"><img src="assets/thumbs/geetha.jpg" alt="" loading="lazy" decoding="async"></div>
+        <div class="tile-body">
+          <div class="tile-row"><img class="tile-icon" src="assets/logos/geetha.svg" alt="" width="28" height="28"><h3><a class="tile-link" href="builds/geetha.html">Geetha</a></h3><span class="status-pill" style="--accent: #FF7AB6">Private</span></div>
+          <p>Free voice typing for my Mac and phone, running entirely on my own devices and tuned to my accent and names.</p>
+          <ul class="tags"><li>Python</li><li>Parakeet</li><li>MLX</li><li>Kotlin</li><li>sherpa-onnx</li><li>Silero</li></ul>
+          
+        </div>
+      </article>
+      <article class="tile" style="--accent: #5AD1E8">
+        <div class="tile-thumb"><img src="assets/thumbs/chat-export.jpg" alt="" loading="lazy" decoding="async"></div>
+        <div class="tile-body">
+          <div class="tile-row"><img class="tile-icon" src="assets/logos/chat-export.svg" alt="" width="28" height="28"><h3><a class="tile-link" href="builds/chat-export.html">Chat Export</a></h3><span class="status-pill" style="--accent: #5AD1E8">Private</span></div>
+          <p>Keeps ChatGPT, Claude in the browser and Claude Code in sync, so Claude Code knows every project and conversation I&#x27;ve had anywhere.</p>
+          <ul class="tags"><li>Python</li><li>JavaScript</li><li>Node.js</li></ul>
+          
+        </div>
+      </article>
+      <article class="tile" style="--accent: #FF5A5F">
+        <div class="tile-thumb"><img src="assets/thumbs/garage.jpg" alt="" loading="lazy" decoding="async"><video src="assets/thumbs/garage-hover.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+        <div class="tile-body">
+          <div class="tile-row"><img class="tile-icon" src="assets/logos/garage.svg" alt="" width="28" height="28"><h3><a class="tile-link" href="builds/garage.html">Garage</a></h3><span class="status-pill" style="--accent: #FF5A5F">Private</span></div>
+          <p>A game-style gallery of all my dream cars in one place, ready to spin in 3D and compare side by side.</p>
+          <ul class="tags"><li>JavaScript</li><li>three.js</li><li>Python</li><li>Pillow</li></ul>
+          
+        </div>
+      </article>
+      <article class="tile" style="--accent: #9BE15D">
+        <div class="tile-thumb"><img src="assets/thumbs/pocketboard.jpg" alt="" loading="lazy" decoding="async"></div>
+        <div class="tile-body">
+          <div class="tile-row"><img class="tile-icon" src="assets/logos/pocketboard.svg" alt="" width="28" height="28"><h3><a class="tile-link" href="builds/pocketboard.html">Pocketboard</a></h3><span class="status-pill" style="--accent: #9BE15D">Private</span></div>
+          <p>Run a Notion task board with thumb swipes on a phone, with every change saved straight to Notion.</p>
+          <ul class="tags"><li>Cloudflare Workers</li><li>Notion API</li><li>JavaScript</li><li>Service Worker</li></ul>
+          
+        </div>
+      </article>
+      <article class="tile" style="--accent: #FFB020">
+        <div class="tile-thumb"><img src="assets/thumbs/studio.jpg" alt="" loading="lazy" decoding="async"></div>
+        <div class="tile-body">
+          <div class="tile-row"><img class="tile-icon" src="assets/logos/studio.svg" alt="" width="28" height="28"><h3><a class="tile-link" href="builds/studio.html">Studio</a></h3><span class="status-pill" style="--accent: #FFB020">Private</span></div>
+          <p>One shared workshop that makes videos, voice-overs and title cards for all my projects from proven, reusable parts.</p>
+          <ul class="tags"><li>Python</li><li>Playwright</li><li>ffmpeg</li><li>Kokoro</li><li>Whisper</li><li>NumPy</li></ul>
+          
+        </div>
+      </article>
+      <article class="tile" style="--accent: #D6DEEB">
+        <div class="tile-thumb"><img src="assets/thumbs/cc-starter-kit.jpg" alt="" loading="lazy" decoding="async"></div>
+        <div class="tile-body">
+          <div class="tile-row"><img class="tile-icon" src="assets/logos/cc-starter-kit.svg" alt="" width="28" height="28"><h3><a class="tile-link" href="builds/cc-starter-kit.html">CC Starter Kit</a></h3><span class="status-pill" style="--accent: #D6DEEB">Private</span></div>
+          <p>A ready-to-install Claude Code setup that gives Claude a goal-driven work style, cost guardrails and memory between sessions.</p>
+          <ul class="tags"><li>Python</li><li>Markdown</li><li>JSON</li><li>HTML</li></ul>
+          
+        </div>
+      </article>
+      <article class="tile" style="--accent: #38BDF8">
+        <div class="tile-thumb"><img src="assets/thumbs/oriel.jpg" alt="" loading="lazy" decoding="async"><video src="assets/thumbs/oriel-hover.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+        <div class="tile-body">
+          <div class="tile-row"><img class="tile-icon" src="assets/logos/oriel.svg" alt="" width="28" height="28"><h3><a class="tile-link" href="builds/oriel.html">Oriel</a></h3><span class="status-pill" style="--accent: #38BDF8">Prototype</span></div>
+          <p>A small window of peace for the Mac desktop: a calm scene that changes over time, with subtle, gentle motion.</p>
+          <ul class="tags"><li>Swift</li><li>AppKit</li><li>three.js</li><li>WebGL</li></ul>
+          
+        </div>
+      </article>
     </div>
   <section class="contact glass" id="contact">
     <h2>Let&#x27;s talk</h2>
@@ -88,6 +169,6 @@
   <footer><span>Venkat Kartik Nukala</span><span>Built by <a href="https://github.com/Kay0ssTheory" target="_blank" rel="noopener">Kay0sstheory</a> - Powered by curiosity</span></footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="assets/site.js?v=f3e88fe9"></script>
+<script src="assets/site.js?v=0f44a01d"></script>
 </body>
 </html>

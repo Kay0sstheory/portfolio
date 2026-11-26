@@ -410,3 +410,61 @@ h2.section-title { font-size: 23px; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
+
+/* Project tiles and pages, fresh approach (2026-11-26): three tiles to a row on every page, full summary (never cut off),
+   tool tags and public links like prasen.dev; project pages lead with a big picture, key numbers and every feature group. */
+.tiles, .hero ~ .stack .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.tile { display: flex; flex-direction: column; }
+.tile-body, .hero ~ .stack .tile-body { display: grid; gap: 10px; padding: 14px 8px 8px; align-content: start; }
+.tile-row { justify-content: flex-start; gap: 10px; }
+.tile-row .status-pill { margin-left: auto; }
+.tile-icon, .hero ~ .stack .tile-icon { width: 30px; height: 30px; border-radius: 8px; filter: none; }
+.tile h3, .hero ~ .stack .tile h3 { font-size: 16px; font-weight: 600; }
+.tile p, .hero ~ .stack .tile p { white-space: normal; overflow: visible; font-size: 14px; line-height: 1.5; }
+.tile-link { color: inherit; text-decoration: none; }
+.tile-link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1; }
+.tile-link:focus-visible { outline: none; }
+.tile:has(.tile-link:focus-visible) { outline: 2px solid var(--glow, #8AB4FF); outline-offset: 2px; }
+.tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.tags li { font-family: var(--font-label); font-size: 12px; padding: 3px 9px; border-radius: 7px; color: var(--ink-soft); background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); }
+.tile-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip-button { position: relative; z-index: 2; font-size: 12.5px; padding: 5px 11px; border-radius: 999px; color: var(--ink); text-decoration: none; border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(255, 255, 255, 0.04); transition: background 0.2s ease, border-color 0.2s ease; }
+.chip-button:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.32); }
+
+.project-hero { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(24px, 4vw, 56px); align-items: center; margin-top: calc(var(--nav-height) - clamp(40px, 6vw, 72px)); }
+.project-intro { display: grid; gap: 18px; align-content: center; }
+.project-title { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.project-title img { width: clamp(48px, 6vw, 64px); height: auto; border-radius: 14px; }
+.project-title h1 { margin: 0; font-weight: 500; font-size: clamp(30px, 4.4vw, 54px); line-height: 1; letter-spacing: -0.04em; }
+.project-hero .tagline { margin: 0; font-size: clamp(17px, 1.7vw, 20px); line-height: 1.5; color: var(--ink-soft); max-width: 46ch; }
+.project-hero .tile-links { gap: 10px; }
+.project-media { border-radius: 16px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); aspect-ratio: 16 / 10; background: #0b0d14; box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.9); }
+.project-media img, .project-media video { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+.stat { padding: 18px 20px; display: grid; gap: 4px; align-content: start; }
+.stat b { font-size: clamp(24px, 2.6vw, 32px); font-weight: 600; letter-spacing: -0.02em; }
+.stat span { color: var(--ink-soft); font-size: 14px; line-height: 1.45; }
+.feature-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.feature-group { padding: 20px 22px; display: grid; gap: 12px; align-content: start; }
+.feature-group h3 { margin: 0; font-size: 16px; font-weight: 600; }
+.feature-group ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 9px; }
+.feature-group li { position: relative; padding-left: 16px; font-size: 14.5px; line-height: 1.5; color: var(--ink-soft); }
+.feature-group li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--glow, #8AB4FF); opacity: 0.8; }
+.shot-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.shot-grid figure { margin: 0; }
+.shot-grid img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); display: block; }
+
+@media (max-width: 1100px) { .tiles, .hero ~ .stack .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 860px) {
+  .project-hero { grid-template-columns: minmax(0, 1fr); }
+  .feature-groups, .shot-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) { .tiles, .hero ~ .stack .tiles { grid-template-columns: minmax(0, 1fr); } }
+
+/* Photography as one continuous page (2026-11-26): the gallery tabs stay pinned under the top bar. */
+.gallery-tabs { position: sticky; top: calc(12px + 55px + 10px + env(safe-area-inset-top, 0px)); z-index: 9; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
+  padding: 8px; border-radius: 999px; background: rgba(8, 12, 24, 0.72); backdrop-filter: blur(16px) saturate(1.3); -webkit-backdrop-filter: blur(16px) saturate(1.3); border: 1px solid rgba(255, 255, 255, 0.08); width: max-content; max-width: 100%; }
+.gallery-tabs::-webkit-scrollbar { display: none; }
+.gallery-tabs button { flex: none; transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
+.gallery-section { display: grid; gap: 14px; scroll-margin-top: 140px; }
+.gallery-section + .gallery-section { margin-top: 36px; }

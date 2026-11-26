@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Currensor · Venkat Kartik Nukala</title>
-<meta name="description" content="A currency converter that also works inside Claude and ChatGPT">
+<meta name="description" content="Get live exchange rates for 166 currencies, on the web or right inside a Claude or ChatGPT chat. Free, no sign-in.">
 <meta name="theme-color" content="#060912">
 <link rel="canonical" href="https://kay0sstheory.github.io/portfolio/builds/currensor.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Venkat Kartik Nukala">
 <meta property="og:title" content="Currensor · Venkat Kartik Nukala">
-<meta property="og:description" content="A currency converter that also works inside Claude and ChatGPT">
+<meta property="og:description" content="Get live exchange rates for 166 currencies, on the web or right inside a Claude or ChatGPT chat. Free, no sign-in.">
 <meta property="og:url" content="https://kay0sstheory.github.io/portfolio/builds/currensor.html">
 <meta property="og:image" content="https://kay0sstheory.github.io/portfolio/assets/share.jpg">
 <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../assets/site.css?v=f57922e1">
+<link rel="stylesheet" href="../assets/site.css?v=2e12c210">
 <script data-goatcounter="https://venkatknukala.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -33,17 +33,21 @@
     <ul><li><a href="../about.html">About</a></li><li><a href="../builds.html" aria-current="page">Builds</a></li><li><a href="../resume.html">Resume</a></li><li><a href="../photography.html">Photography</a></li><li><a href="../contact.html">Contact</a></li></ul>
   </nav>
 <main id="main">
-  <header class="build-head" style="--accent: #E8FF59">
-    <img src="../assets/logos/currensor.svg" alt="Currensor logo" width="112" height="112">
-    <div><h1><span class="page-title" id="page-title">Currensor</span></h1><p class="tagline">A currency converter that also works inside Claude and ChatGPT</p></div>
-    <div class="actions"><a class="button live" href="https://kay0sstheory.github.io/Currensor/" target="_blank" rel="noopener">Try it live</a></div>
+  <header class="project-hero" style="--accent: #E8FF59">
+    <div class="project-intro">
+      <div class="project-title"><img src="../assets/logos/currensor.svg" alt="Currensor symbol" width="64" height="64"><h1><span class="page-title" id="page-title">Currensor</span></h1><span class="status-pill is-live" style="--accent: #E8FF59">Live</span></div>
+      <p class="tagline">Get live exchange rates for 166 currencies, on the web or right inside a Claude or ChatGPT chat. Free, no sign-in.</p>
+      <ul class="tags"><li>JavaScript</li><li>Cloudflare Workers</li><li>Cloudflare D1</li><li>Canvas</li></ul>
+      <div class="tile-links"><a class="button" href="https://kay0sstheory.github.io/Currensor/" target="_blank" rel="noopener">Open the web app</a><a class="button" href="https://chatgpt.com/plugins/plugin_asdk_app_6ac137cf0fc081918bcde5f77497877c" target="_blank" rel="noopener">Get it in the ChatGPT store</a></div>
+    </div>
+    <div class="project-media"><video src="../assets/thumbs/currensor-hover.mp4" poster="../assets/thumbs/currensor.jpg" autoplay muted loop playsinline aria-hidden="true"></video></div>
   </header>
 
-  <dl class="story glass"><div><dt>Problem</dt><dd>Checking exchange rates meant leaving the conversation.</dd></div><div><dt>Built</dt><dd>A web converter for 50 currencies, plus a plugin that shows a live conversion card in the chat for 166 currencies.</dd></div><div><dt>Result</dt><dd>Live in the ChatGPT store and five AI tool directories. Anyone can try it.</dd></div></dl>
+  <section class="stats"><div class="stat glass"><b>166</b><span>currencies inside Claude and ChatGPT</span></div><div class="stat glass"><b>50</b><span>currencies on the web page, grouped by region</span></div><div class="stat glass"><b>Hourly</b><span>live rate refresh</span></div><div class="stat glass"><b>6</b><span>public listings, including the ChatGPT store</span></div></section>
 
-  <section class="stack" style="--accent: #E8FF59">
-    <h2 class="section-title">How it works</h2>
-    <ol class="steps"><li class="glass">You type an amount, on the website or in a Claude or ChatGPT chat</li><li class="glass">Currensor fetches live exchange rates</li><li class="glass">The website shows every currency you follow at once</li><li class="glass">In a chat, the plugin answers with a live conversion card</li></ol>
+  <section class="stack">
+    <h2 class="section-title">What it does</h2>
+    <div class="feature-groups"><div class="feature-group glass"><h3>On the web</h3><ul><li>Compare up to five currencies side by side with live rates.</li><li>Never shows a blank: backup rate feeds take over if the main one fails.</li><li>Copy every conversion in one tap, ready for WhatsApp, Slack or email.</li><li>Create a branded picture of any conversion to share.</li><li>Dark and light themes, and a quick phone-friendly currency search.</li></ul></div><div class="feature-group glass"><h3>Inside Claude and ChatGPT</h3><ul><li>Ask in plain words and a live Currensor card appears in the chat.</li><li>Change the amount on the card and every currency updates instantly.</li><li>No sign-in and no key needed, for anyone.</li></ul></div><div class="feature-group glass"><h3>Private and open</h3><ul><li>Stores only anonymous daily counts, never who you are.</li><li>Free and open source.</li><li>Listed in the ChatGPT store and five public plugin directories.</li></ul></div></div>
   </section>
 
   <section class="stack">
@@ -53,7 +57,12 @@
 
   <section class="stack">
     <h2 class="section-title">Screenshots</h2>
-    <div class="shots"><figure class="is-portrait"><img src="../assets/shots/currensor-phone.jpg" alt="The live converter on a phone" loading="lazy"><figcaption>The live converter on a phone</figcaption></figure></div>
+    <div class="shots shot-grid"><figure class="is-portrait"><img src="../assets/shots/currensor-phone.jpg" alt="The live converter on a phone" loading="lazy"><figcaption>The live converter on a phone</figcaption></figure></div>
+  </section>
+
+  <section class="stack" style="--accent: #E8FF59">
+    <h2 class="section-title">How it works</h2>
+    <ol class="steps"><li class="glass">You type an amount, on the website or in a Claude or ChatGPT chat</li><li class="glass">Currensor fetches live exchange rates</li><li class="glass">The website shows every currency you follow at once</li><li class="glass">In a chat, the plugin answers with a live conversion card</li></ol>
   </section>
 
   <section class="next-up glass" style="--accent: #E8FF59">
@@ -62,13 +71,13 @@
   </section>
 
   <nav class="build-pager" aria-label="Other builds">
-    <a href="litmus-stack.html"><span>Previous</span><b>Litmus Stack</b></a>
-    <a href="rezza.html"><span>Next</span><b>Rezza</b></a>
+    <a href="rezza.html"><span>Previous</span><b>Rezza</b></a>
+    <a href="navasiri.html"><span>Next</span><b>NavaSiri</b></a>
   </nav>
 </main>
   <footer><span>Venkat Kartik Nukala</span><span>Built by <a href="https://github.com/Kay0ssTheory" target="_blank" rel="noopener">Kay0sstheory</a> - Powered by curiosity</span></footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="../assets/site.js?v=f3e88fe9"></script>
+<script src="../assets/site.js?v=0f44a01d"></script>
 </body>
 </html>

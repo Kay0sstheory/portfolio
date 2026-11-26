@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Emerald · Venkat Kartik Nukala</title>
-<meta name="description" content="A command center for all my projects">
+<meta name="description" content="Mission control for all my projects: live status, a goal map, my task board and a nightly briefing in one place.">
 <meta name="theme-color" content="#060912">
 <link rel="canonical" href="https://kay0sstheory.github.io/portfolio/builds/emerald.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Venkat Kartik Nukala">
 <meta property="og:title" content="Emerald · Venkat Kartik Nukala">
-<meta property="og:description" content="A command center for all my projects">
+<meta property="og:description" content="Mission control for all my projects: live status, a goal map, my task board and a nightly briefing in one place.">
 <meta property="og:url" content="https://kay0sstheory.github.io/portfolio/builds/emerald.html">
 <meta property="og:image" content="https://kay0sstheory.github.io/portfolio/assets/share.jpg">
 <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../assets/site.css?v=f57922e1">
+<link rel="stylesheet" href="../assets/site.css?v=2e12c210">
 <script data-goatcounter="https://venkatknukala.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -33,37 +33,36 @@
     <ul><li><a href="../about.html">About</a></li><li><a href="../builds.html" aria-current="page">Builds</a></li><li><a href="../resume.html">Resume</a></li><li><a href="../photography.html">Photography</a></li><li><a href="../contact.html">Contact</a></li></ul>
   </nav>
 <main id="main">
-  <header class="build-head" style="--accent: #34D399">
-    <img src="../assets/logos/emerald.svg" alt="Emerald logo" width="112" height="112">
-    <div><h1><span class="page-title" id="page-title">Emerald</span></h1><p class="tagline">A command center for all my projects</p></div>
-    <div class="actions"><span class="status-pill" style="--accent: #34D399">Private</span></div>
+  <header class="project-hero" style="--accent: #34D399">
+    <div class="project-intro">
+      <div class="project-title"><img src="../assets/logos/emerald.svg" alt="Emerald symbol" width="64" height="64"><h1><span class="page-title" id="page-title">Emerald</span></h1><span class="status-pill" style="--accent: #34D399">Private</span></div>
+      <p class="tagline">Mission control for all my projects: live status, a goal map, my task board and a nightly briefing in one place.</p>
+      <ul class="tags"><li>Node.js</li><li>Express</li><li>React</li><li>SQLite</li><li>Socket.IO</li><li>Tailwind CSS</li></ul>
+      
+    </div>
+    <div class="project-media"><video src="../assets/thumbs/emerald-hover.mp4" poster="../assets/thumbs/emerald.jpg" autoplay muted loop playsinline aria-hidden="true"></video></div>
   </header>
 
-  <dl class="story glass"><div><dt>Problem</dt><dd>With a dozen builds on the go, I was losing track.</dd></div><div><dt>Built</dt><dd>A live dashboard that updates the moment any project changes, and visibly flags the ones going quiet.</dd></div><div><dt>Result</dt><dd>One screen shows where everything stands.</dd></div></dl>
+  <section class="stats"><div class="stat glass"><b>205</b><span>project ideas each explained in one plain sentence</span></div><div class="stat glass"><b>26</b><span>project logs read as the live record</span></div><div class="stat glass"><b>9 pm</b><span>nightly briefing email</span></div><div class="stat glass"><b>29</b><span>post ideas waiting in the idea bank</span></div></section>
+
+  <section class="stack">
+    <h2 class="section-title">What it does</h2>
+    <div class="feature-groups"><div class="feature-group glass"><h3>Goal map</h3><ul><li>A live mind map with life goals in lanes and progress on each.</li><li>Every project&#x27;s latest status and open questions sit on the map.</li><li>Links show how one goal feeds another.</li></ul></div><div class="feature-group glass"><h3>Every project at a glance</h3><ul><li>A card per project, fading as it goes untouched, with milestones and blockers.</li><li>One dated feed of milestones from every project.</li><li>Live to-do lists per project; a note and one click queue work for Claude.</li><li>Per-project mind maps grow by themselves so side ideas are never lost.</li></ul></div><div class="feature-group glass"><h3>Task board and briefing</h3><ul><li>Projects post what they need from me to my Notion board, once each.</li><li>I drop tasks for Claude into a column and get them back done.</li><li>A nightly email sums up every project in three bullets.</li></ul></div><div class="feature-group glass"><h3>Always on</h3><ul><li>Restarts itself after a reboot or crash.</li><li>Reachable from my Windows PC over a private network.</li><li>A health scan checks every project for risky or outdated parts.</li></ul></div></div>
+  </section>
 
   <section class="stack" style="--accent: #34D399">
     <h2 class="section-title">How it works</h2>
     <ol class="steps"><li class="glass">Every project keeps a short log of each work session</li><li class="glass">Emerald watches those logs for changes</li><li class="glass">Status and to-dos update the moment a file changes</li><li class="glass">Projects that go quiet fade, so nothing is forgotten</li></ol>
   </section>
 
-  <section class="stack">
-    <h2 class="section-title">Screenshots</h2>
-    <div class="empty-shots glass"><p>Screenshots are on the way.</p><p class="muted">This app holds real personal data, so I'm filling a copy with made-up data to show it safely.</p></div>
-  </section>
-
-  <section class="next-up glass" style="--accent: #34D399">
-    <span class="label">Building next</span>
-    <p>Mind maps, so I can lay out a day or an idea visually and drag things around.</p>
-  </section>
-
   <nav class="build-pager" aria-label="Other builds">
     <a href="wells-kargo.html"><span>Previous</span><b>Wells Kargo</b></a>
-    <a href="scribe.html"><span>Next</span><b>Scribe</b></a>
+    <a href="litmus-stack.html"><span>Next</span><b>Litmus Stack</b></a>
   </nav>
 </main>
   <footer><span>Venkat Kartik Nukala</span><span>Built by <a href="https://github.com/Kay0ssTheory" target="_blank" rel="noopener">Kay0sstheory</a> - Powered by curiosity</span></footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="../assets/site.js?v=f3e88fe9"></script>
+<script src="../assets/site.js?v=0f44a01d"></script>
 </body>
 </html>
