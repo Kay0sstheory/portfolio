@@ -468,3 +468,37 @@ html.lenis, html.lenis body { height: auto; }
 .gallery-tabs button { flex: none; transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
 .gallery-section { display: grid; gap: 14px; scroll-margin-top: 140px; }
 .gallery-section + .gallery-section { margin-top: 36px; }
+
+/* Phone pass (2026-11-26). Sections never grow wider than the screen; that bug cut photos and links off on phones. */
+.stack, .gallery-section { grid-template-columns: minmax(0, 1fr); }
+.nav-menu-button { display: none; }
+@media (max-width: 700px) {
+  .nav { flex-wrap: nowrap; padding: 6px 6px 6px 16px; }
+  .nav .home, .nav-page { font-size: 17px; }
+  .nav-menu-button { display: inline-flex; align-items: center; height: 38px; padding: 0 16px; border-radius: 999px; font: inherit; font-size: 15px;
+    color: var(--ink); background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); cursor: pointer; flex: none; margin-left: auto; }
+  .nav ul { display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; flex-direction: column; gap: 2px; padding: 8px;
+    border-radius: 16px; background: rgba(8, 12, 24, 0.96); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 24px 50px -20px #000; }
+  .nav.is-open { z-index: 30; }
+  .nav.is-open ul { display: flex; }
+  .nav ul a { font-size: 17px; padding: 12px 14px; }
+  /* Home flow on a phone: name, builds, photos, then the longer About text, then contact. */
+  .home-about { order: 3; }
+  .page > .contact, main > .contact { order: 4; }
+  .page > footer { order: 5; }
+  /* The home page shows six builds on a phone; the rest are one tap away on the Builds page. */
+  .home-builds .tile:nth-child(n+7) { display: none; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .stat { padding: 14px 16px; }
+  .stat b { font-size: 22px; }
+  .stat span { font-size: 13px; }
+  .project-hero { gap: 20px; }
+  .project-title h1 { font-size: 34px; }
+  .tile-body { padding: 12px 4px 4px; }
+  .gallery-tabs { top: calc(12px + 52px + 8px + env(safe-area-inset-top, 0px)); border-radius: 14px; }
+}
+/* HD screenshots (2026-11-26): phone shots sit centred at a readable height instead of filling a column. */
+.shot-grid figure { display: grid; gap: 8px; align-content: start; }
+.shot-grid figure.is-portrait { justify-items: center; background: rgba(255, 255, 255, 0.03); border-radius: 12px; padding: 16px; }
+.shot-grid figure.is-portrait img { width: auto; max-width: 100%; max-height: 560px; }
+.shot-grid figcaption { font-size: 13.5px; color: var(--ink-soft); }

@@ -523,3 +523,14 @@ document.querySelectorAll('.tile').forEach(tile => {
   function frame(time) { lenis.raf(time); requestAnimationFrame(frame); }
   requestAnimationFrame(frame);
 })();
+
+// Phones get a compact top bar (2026-11-26): the name and a Menu button that opens the page links.
+(function startMenuButton() {
+  const nav = document.querySelector(".nav");
+  const button = nav && nav.querySelector(".nav-menu-button");
+  if (!button) return;
+  const setOpen = open => { nav.classList.toggle("is-open", open); button.setAttribute("aria-expanded", String(open)); button.textContent = open ? "Close" : "Menu"; };
+  button.addEventListener("click", () => setOpen(!nav.classList.contains("is-open")));
+  document.addEventListener("click", event => { if (!nav.contains(event.target)) setOpen(false); });
+  document.addEventListener("keydown", event => { if (event.key === "Escape") setOpen(false); });
+})();
