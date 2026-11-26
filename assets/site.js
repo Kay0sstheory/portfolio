@@ -9,14 +9,19 @@
   const vertexSource = "attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }";
   const fragmentSource = `
     precision mediump float;
-    uniform vec2 res; uniform float t; uniform float scroll;
+    uniform vec2 res; uniform float t; uniform float scroll; uniform vec2 pointer; uniform vec3 tint; uniform float strength;
     float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
     void main(){
       vec2 uv = gl_FragCoord.xy / res; float aspect = res.x / res.y; vec2 q = vec2(uv.x * aspect, uv.y);
       vec2 source = vec2(0.15 + 0.05 * sin(t * 0.07), 1.0 + scroll * 0.25);
-      float light = exp(-length((uv - source) * vec2(aspect, 1.0)) * 2.2) * 0.22;
+      float light = exp(-length((uv - source) * vec2(aspect, 1.0)) * 2.8) * strength;
+      // A second, slower pool drifts across the lower right so the page never reads as flat black.
+      vec2 drift = vec2(0.82 + 0.08 * sin(t * 0.05 + 1.3), 0.18 + 0.06 * cos(t * 0.04));
+      light += exp(-length((uv - drift) * vec2(aspect, 1.0)) * 3.6) * strength * 0.45;
+      // A soft spotlight trails the cursor.
+      light += exp(-length((uv - pointer) * vec2(aspect, 1.0)) * 6.0) * strength * 0.35;
       float lines = smoothstep(0.985, 1.0, sin((q.x + q.y) * 140.0 + t * 0.3)) * 0.012;
-      gl_FragColor = vec4(vec3(light + lines + hash(gl_FragCoord.xy + floor(t * 10.0)) * 0.02), 1.0);
+      gl_FragColor = vec4(tint * (light + lines) + vec3(hash(gl_FragCoord.xy + floor(t * 10.0)) * 0.02), 1.0);
     }`;
 
   function compile(type, source) {
@@ -41,6 +46,38 @@
     const resolutionUniform = gl.getUniformLocation(program, "res");
     const timeUniform = gl.getUniformLocation(program, "t");
     const scrollUniform = gl.getUniformLocation(program, "scroll");
+    const pointerUniform = gl.getUniformLocation(program, "pointer");
+    const tintUniform = gl.getUniformLocation(program, "tint");
+    const strengthUniform = gl.getUniformLocation(program, "strength");
+
+    // site.css sets the light's colour and brightness (--light-tint, --light-strength).
+    let tint = [1, 1, 1];
+    let strength = 0.4;
+    function readLook() {
+      const style = getComputedStyle(document.documentElement);
+      const parsedTint = style.getPropertyValue("--light-tint").split(",").map(Number);
+      if (parsedTint.length === 3 && parsedTint.every(Number.isFinite)) tint = parsedTint;
+      const parsedStrength = parseFloat(style.getPropertyValue("--light-strength"));
+      if (Number.isFinite(parsedStrength)) strength = parsedStrength;
+    }
+    readLook();
+    let shownTint = [...tint];
+    document.addEventListener("lookchange", () => { readLook(); draw(performance.now()); });
+
+    // The spotlight sits exactly under the cursor; it rests near the top left on touch screens.
+    let lightFramePending = false;
+    const pointerTarget = [0.2, 0.85];
+    const pointerNow = [0.2, 0.85];
+    window.addEventListener("pointermove", event => {
+      if (event.pointerType !== "mouse") return;
+      pointerTarget[0] = event.clientX / window.innerWidth;
+      pointerTarget[1] = 1 - event.clientY / window.innerHeight;
+      if (!lightFramePending) { lightFramePending = true; requestAnimationFrame(now => { lightFramePending = false; draw(now); lastDraw = now; }); }
+    }, { passive: true });
+
+    // Hovering a build tints the light in that build's own colour; it eases back to white when the cursor leaves.
+    let tintTarget = null;
+    document.addEventListener("buildhover", event => { tintTarget = event.detail; });
 
     // Low resolution is invisible behind blur and grain, and keeps laptops and phones cool.
     const renderScale = 0.4;
@@ -59,6 +96,13 @@
       gl.uniform2f(resolutionUniform, canvas.width, canvas.height);
       gl.uniform1f(timeUniform, reduceMotion ? 20 : (now - startTime) / 1000);
       gl.uniform1f(scrollUniform, scrollable > 0 ? window.scrollY / scrollable : 0);
+      pointerNow[0] = pointerTarget[0];
+      pointerNow[1] = pointerTarget[1];
+      const goal = tintTarget || tint;
+      shownTint = shownTint.map((value, channel) => value + (goal[channel] - value) * (reduceMotion ? 1 : 0.12));
+      gl.uniform2f(pointerUniform, pointerNow[0], pointerNow[1]);
+      gl.uniform3f(tintUniform, shownTint[0], shownTint[1], shownTint[2]);
+      gl.uniform1f(strengthUniform, strength);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     }
     function loop(now) {
@@ -363,3 +407,72 @@ document.querySelectorAll('.tile').forEach(tile => {
   tile.addEventListener('mouseenter', start); tile.addEventListener('focus', start);
   tile.addEventListener('mouseleave', stop); tile.addEventListener('blur', stop);
 });
+
+// Life pass (2026-11-26): sections rise in as they scroll into view, tiles glow
+// under the cursor, and phones play tile previews when the tile is on screen. Visitors who ask for less motion get none of it.
+(function bringPageToLife() {
+  const root = document.documentElement;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Tiles: a soft light follows the cursor along the card's edge (site.css reads --spot-x / --spot-y).
+  // Every build shares one glow colour (site.css --glow); the background light borrows it while a tile is hovered.
+  function glowAsLight() {
+    const hex = getComputedStyle(root).getPropertyValue("--glow").trim().replace("#", "");
+    if (!/^[0-9a-f]{6}$/i.test(hex)) return null;
+    return [0, 2, 4].map(offset => parseInt(hex.slice(offset, offset + 2), 16) / 255);
+  }
+  document.querySelectorAll(".tile").forEach(tile => {
+    tile.addEventListener("pointerenter", () => {
+      document.dispatchEvent(new CustomEvent("buildhover", { detail: glowAsLight() }));
+    });
+    tile.addEventListener("pointerleave", () => document.dispatchEvent(new CustomEvent("buildhover", { detail: null })));
+    tile.addEventListener("pointermove", event => {
+      const box = tile.getBoundingClientRect();
+      tile.style.setProperty("--spot-x", `${event.clientX - box.left}px`);
+      tile.style.setProperty("--spot-y", `${event.clientY - box.top}px`);
+    }, { passive: true });
+  });
+
+  if (reduceMotion) return;
+  root.classList.add("motion-ok");
+
+  // Everything after the heading rises in when it scrolls into view; items side by side follow each other by 60ms.
+  const firstGroup = document.querySelectorAll(".hero .role-line, .page-head .lead, .build-head .tagline, .build-head .actions");
+  firstGroup.forEach((element, index) => { element.classList.add("reveal"); element.style.setProperty("--delay", `${120 + index * 90}ms`); });
+  const groups = document.querySelectorAll("main > *:not(.hero):not(.page-head):not(.build-head), .tiles > *, .timeline > *, .steps > *, .shots > *, footer");
+  groups.forEach(element => element.classList.add("reveal"));
+  document.querySelectorAll(".tiles, .timeline, .steps").forEach(list => {
+    [...list.children].forEach((child, index) => child.style.setProperty("--delay", `${Math.min(index, 8) * 60}ms`));
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-in");
+      observer.unobserve(entry.target);
+    });
+  }, { rootMargin: "0px 0px -8% 0px" });
+  document.querySelectorAll(".reveal").forEach(element => observer.observe(element));
+
+  // Phones have no hover, so a tile's preview plays while the tile sits mostly on screen.
+  if (window.matchMedia("(hover: none)").matches) {
+    const previewWatcher = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const video = entry.target.querySelector(".tile-thumb video");
+        if (!video) return;
+        if (entry.isIntersecting) video.play().then(() => entry.target.classList.add("is-playing")).catch(() => {});
+        else { entry.target.classList.remove("is-playing"); video.pause(); }
+      });
+    }, { threshold: 0.7 });
+    document.querySelectorAll(".tile").forEach(tile => previewWatcher.observe(tile));
+  }
+})();
+
+// Smooth, slightly weighted scrolling like michaelandreuzza.com (Lenis); off for visitors who ask for less motion.
+(function smoothScroll() {
+  if (!window.Lenis || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  // Lenis 1.1 has no self-start option, so this loop drives it every frame; without it the wheel does nothing.
+  const lenis = new Lenis({ lerp: 0.1 });
+  function frame(time) { lenis.raf(time); requestAnimationFrame(frame); }
+  requestAnimationFrame(frame);
+})();
